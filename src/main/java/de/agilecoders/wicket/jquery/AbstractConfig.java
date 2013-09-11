@@ -1,5 +1,6 @@
 package de.agilecoders.wicket.jquery;
 
+import de.agilecoders.wicket.jquery.util.Json;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.io.IClusterable;
 import org.apache.wicket.util.lang.Objects;

@@ -2,8 +2,8 @@ package de.agilecoders.wicket.jquery;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.agilecoders.wicket.jquery.util.Json;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.util.HashMap;
 import java.util.Map;

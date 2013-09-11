@@ -1,6 +1,8 @@
 package de.agilecoders.wicket.jquery;
 
 import com.google.common.base.Function;
+import de.agilecoders.wicket.jquery.util.Generics2;
+import de.agilecoders.wicket.jquery.util.Strings2;
 import org.apache.wicket.Component;
 import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;

@@ -1,4 +1,4 @@
-package de.agilecoders.wicket.jquery;
+package de.agilecoders.wicket.jquery.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -6,6 +6,8 @@ import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.agilecoders.wicket.jquery.ConfigModel;
+import de.agilecoders.wicket.jquery.IDataSource;
 import org.apache.wicket.util.string.Strings;
 
 import java.io.IOException;

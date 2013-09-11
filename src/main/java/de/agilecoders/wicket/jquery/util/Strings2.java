@@ -1,4 +1,4 @@
-package de.agilecoders.wicket.jquery;
+package de.agilecoders.wicket.jquery.util;
 
 /**
  * helper class to handle string interaction
