@@ -2,17 +2,22 @@ package de.agilecoders.wicket.jquery;
 
 import org.apache.wicket.util.time.Duration;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
 import static de.agilecoders.wicket.jquery.JQuery.EachJqueryFunction.each;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+
 
 /**
- * Tests the {@link de.agilecoders.wicket.jquery.JQuery} class
+ * Tests the {@link JQuery} class
  *
  * @author miha
  */
+@Category(TestCategory.UnitTest.class)
 public class JQueryTest {
 
     @Test
@@ -71,14 +76,14 @@ public class JQueryTest {
     }
 
     /**
-     * helper to build an {@link de.agilecoders.wicket.jquery.JQuery.IFunction}
+     * helper to build an {@link JQuery.IFunction}
      */
     private static final class HelperFunction extends JQuery.AbstractFunction {
 
         /**
          * Construct.
          *
-         * @param functionName The function name of this {@link de.agilecoders.wicket.jquery.JQuery.IFunction} implementation
+         * @param functionName The function name of this {@link JQuery.IFunction} implementation
          */
         protected HelperFunction(final String functionName) {
             super(functionName);
