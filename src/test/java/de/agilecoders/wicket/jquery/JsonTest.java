@@ -4,18 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.agilecoders.wicket.jquery.util.Json;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.instanceOf;
 
 /**
  * Tests the {@code Json} class
  *
  * @author miha
  */
+@Category(TestCategory.UnitTest.class)
 public class JsonTest {
     private static final String JSON_STRING = "{\"\":null,\"1\":\"value2\",\"3\":true,\"double\":1.2,\"key\":\"value\"}";
     private static final String NONSTANDARD_JSON_STRING = "{\"\":null,'1':\"value2\",\"3\":true,double:1.2,\"key\":'value'}";

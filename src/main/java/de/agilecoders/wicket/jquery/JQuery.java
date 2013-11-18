@@ -2,16 +2,17 @@ package de.agilecoders.wicket.jquery;
 
 import com.google.common.base.Function;
 import de.agilecoders.wicket.jquery.util.Generics2;
-import de.agilecoders.wicket.jquery.util.Strings2;
 import org.apache.wicket.Component;
 import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.io.IClusterable;
+import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.time.Duration;
 
 import java.util.List;
 
+import static de.agilecoders.wicket.jquery.util.Strings2.nullToEmpty;
 
 /**
  * The Jquery class helps to keep all javascript jquery scripts type safe.
@@ -47,7 +48,7 @@ public final class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component) {
-        return $("#" + component.getMarkupId(true));
+        return $("#" + Args.notNull(component, "component").getMarkupId(true));
     }
 
     /**
@@ -172,7 +173,7 @@ public final class JQuery implements IClusterable {
         public JavaScriptInlineFunction(final String functionBody) {
             super("function");
 
-            this.functionBody = Strings2.nullToEmpty(functionBody);
+            this.functionBody = nullToEmpty(functionBody);
         }
 
         @Override

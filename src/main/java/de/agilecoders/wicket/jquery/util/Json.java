@@ -3,11 +3,18 @@ package de.agilecoders.wicket.jquery.util;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ser.std.RawSerializer;
+import de.agilecoders.wicket.jquery.AbstractConfig;
 import de.agilecoders.wicket.jquery.ConfigModel;
-import de.agilecoders.wicket.jquery.IDataSource;
+import org.apache.wicket.util.io.IClusterable;
+import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
 
 import java.io.IOException;
@@ -42,10 +49,16 @@ public final class Json {
                 jsonGenerator.writeString(value.getObject());
             }
         });
-        wbModule.addSerializer(IDataSource.class, new JsonSerializer<IDataSource>() {
+        wbModule.addSerializer(AbstractConfig.class, new JsonSerializer<AbstractConfig>() {
             @Override
-            public void serialize(IDataSource value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeObject(stringify(value.load()));
+            public void serialize(AbstractConfig value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+                jsonGenerator.writeObject(value.toJsonString());
+            }
+        });
+        wbModule.addSerializer(RawValue.class, new RawSerializer<RawValue>(RawValue.class) {
+            @Override
+            public void serialize(RawValue value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+                jsonGenerator.writeObject(value.value);
             }
         });
         mapper.registerModule(wbModule);
@@ -208,6 +221,24 @@ public final class Json {
          */
         public ParseException(Throwable throwable) {
             super(throwable);
+        }
+    }
+
+    /**
+     * An object that can be used to render raw String value,
+     * i.e. a String that will not be wrapped in quotes.
+     *
+     * For example serializing a key 'someKey' with value {@code new RawValue("Value")}
+     * will produce the following JSON: {"someKey": Value}.
+     *
+     * The user must make sure that the value is a real JavaScript object in his application.
+     */
+    public static final class RawValue implements IClusterable {
+
+        private final String value;
+
+        public RawValue(String value) {
+            this.value = Args.notEmpty(value, "value");
         }
     }
 }
