@@ -68,6 +68,7 @@ public abstract class AbstractConfig implements IClusterable {
      *
      * @param key the key to remove
      */
+    @SuppressWarnings("unchecked")
     protected final <T> T remove(final IKey<T> key) {
         return (T) config.remove(key.key());
     }
@@ -92,8 +93,9 @@ public abstract class AbstractConfig implements IClusterable {
      * @param key The key to read.
      * @return the value.
      */
+    @SuppressWarnings("unchecked")
     protected final <T> T get(final IKey<T> key) {
-        T value = (T) config.get(key);
+        T value = (T) config.get(key.key());
 
         return value != null ? value : key.getDefaultValue();
     }
@@ -110,14 +112,14 @@ public abstract class AbstractConfig implements IClusterable {
     }
 
     /**
-     * Simple interface to enrich the {@link java.util.Map} key with some
+     * Simple interface to enrich the {@link Map} key with some
      * functionality like assertion of value type and default value
      * handling.
      */
     public static interface IKey<T> {
 
         /**
-         * @return the key to use in {@link java.util.Map}
+         * @return the key to use in {@link Map}
          */
         public String key();
 
