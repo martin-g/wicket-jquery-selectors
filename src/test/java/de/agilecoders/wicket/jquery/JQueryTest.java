@@ -60,7 +60,7 @@ public class JQueryTest {
 
     @Test
     public void chainedFunctionIsAddedToJqueryCall() {
-        assertThat($(".selector ul li.classname").chain(new JQuery.IFunction() {
+        assertThat($(".selector ul li.classname").chain(new IFunction() {
             @Override
             public String build() {
                 return "function()";
@@ -76,14 +76,14 @@ public class JQueryTest {
     }
 
     /**
-     * helper to build an {@link JQuery.IFunction}
+     * helper to build an {@link IFunction}
      */
     private static final class HelperFunction extends JQuery.AbstractFunction {
 
         /**
          * Construct.
          *
-         * @param functionName The function name of this {@link JQuery.IFunction} implementation
+         * @param functionName The function name of this {@link IFunction} implementation
          */
         protected HelperFunction(final String functionName) {
             super(functionName);
