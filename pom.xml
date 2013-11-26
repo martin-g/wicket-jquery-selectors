@@ -26,6 +26,31 @@
         <findbugs.disable>true</findbugs.disable>
     </properties>
 
+    <scm>
+        <connection>scm:git:git://github.com/l0rdn1kk0n/wicket-jquery-selectors.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/l0rdn1kk0n/wicket-jquery-selectors.git</developerConnection>
+        <url>https://github.com/l0rdn1kk0n/wicket-jquery-selectors/</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/l0rdn1kk0n/wicket-jquery-selectors/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://travis-ci.org/l0rdn1kk0n/wicket-jquery-selectors</url>
+    </ciManagement>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
