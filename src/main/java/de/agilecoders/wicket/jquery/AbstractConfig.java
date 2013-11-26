@@ -112,32 +112,6 @@ public abstract class AbstractConfig implements IClusterable {
     }
 
     /**
-     * Simple interface to enrich the {@link Map} key with some
-     * functionality like assertion of value type and default value
-     * handling.
-     */
-    public static interface IKey<T> {
-
-        /**
-         * @return the key to use in {@link Map}
-         */
-        public String key();
-
-        /**
-         * checks if given value is equal to default value
-         *
-         * @param value The value to check.
-         * @return true, if given value is equal to default value
-         */
-        public boolean isDefaultValue(T value);
-
-        /**
-         * @return the default value
-         */
-        public T getDefaultValue();
-    }
-
-    /**
      * creates a new key.
      *
      * @param key          string representation of this key

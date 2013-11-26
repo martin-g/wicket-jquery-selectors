@@ -125,7 +125,7 @@ public final class JQuery implements IClusterable {
     /**
      * @return this jquery script as {@link OnDomReadyHeaderItem} instance
      */
-    public final OnDomReadyHeaderItem asDomReadyScript() {
+    public OnDomReadyHeaderItem asDomReadyScript() {
         return OnDomReadyHeaderItem.forScript(get());
     }
 
@@ -146,17 +146,6 @@ public final class JQuery implements IClusterable {
     public JQuery chain(final String functionName, final AbstractConfig config) {
         functions.add(new ConfigurableFunction(functionName, config));
         return this;
-    }
-
-    /**
-     * simple interface to represent a jquery function.
-     */
-    public static interface IFunction extends IClusterable {
-
-        /**
-         * @return the function as javascript string.
-         */
-        String build();
     }
 
     /**
@@ -218,7 +207,7 @@ public final class JQuery implements IClusterable {
         /**
          * Construct.
          *
-         * @param functionName The function name of this {@link JQuery.IFunction} implementation
+         * @param functionName The function name of this {@link IFunction} implementation
          */
         protected SimpleFunction(final String functionName) {
             super(functionName);
@@ -233,7 +222,7 @@ public final class JQuery implements IClusterable {
         /**
          * Construct.
          *
-         * @param functionName The function name of this {@link JQuery.IFunction} implementation
+         * @param functionName The function name of this {@link IFunction} implementation
          * @param config       the function configuration
          */
         protected ConfigurableFunction(final String functionName, final AbstractConfig config) {
