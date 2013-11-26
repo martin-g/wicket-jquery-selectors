@@ -25,6 +25,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>de.agilecoders.maven</groupId>
+            <artifactId>maven-parent-config</artifactId>
+            <version>${config.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
             <scope>provided</scope>
