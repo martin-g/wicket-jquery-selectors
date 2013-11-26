@@ -10,9 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.startsWith;
 
 /**
  * Tests the {@code Json} class
@@ -21,7 +24,8 @@ import static org.hamcrest.Matchers.instanceOf;
  */
 @Category(TestCategory.UnitTest.class)
 public class JsonTest {
-    private static final String JSON_STRING = "{\"\":null,\"1\":\"value2\",\"3\":true,\"double\":1.2,\"key\":\"value\"}";
+    private static final String JSON_STRING = "{\"key\":\"value\",\"3\":true,\"double\":1.2,\"\":null,"
+                                              + "\"1\":\"value2\"}";
     private static final String NONSTANDARD_JSON_STRING = "{\"\":null,'1':\"value2\",\"3\":true,double:1.2,\"key\":'value'}";
 
     @Test
@@ -102,14 +106,24 @@ public class JsonTest {
     public void stringifyJsonNodeReturnsCorrectJsonString() throws Exception {
         String value = Json.stringify(Json.toJson(createData()));
 
-        assertThat(value, is(equalTo(JSON_STRING)));
+        assertCorrectJsonString(value);
     }
 
     @Test
     public void stringifyObjectReturnsCorrectJsonString() throws Exception {
         String value = Json.stringify(createData());
 
-        assertThat(value, is(equalTo(JSON_STRING)));
+        assertCorrectJsonString(value);
+    }
+
+    private void assertCorrectJsonString(final String value) {
+        assertThat(value, startsWith("{"));
+        assertThat(value, endsWith("}"));
+        assertThat(value, containsString("\"3\":true"));
+        assertThat(value, containsString("\"1\":\"value2\""));
+        assertThat(value, containsString("\"\":null"));
+        assertThat(value, containsString("\"double\":1.2"));
+        assertThat(value, containsString("\"key\":\"value\""));
     }
 
     @Test
