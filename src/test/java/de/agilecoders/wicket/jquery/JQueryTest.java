@@ -1,5 +1,7 @@
 package de.agilecoders.wicket.jquery;
 
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.util.tester.WicketTester;
 import org.apache.wicket.util.time.Duration;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -73,6 +75,24 @@ public class JQueryTest {
     public void chainedAbstractFunctionIsAddedToJqueryCall() {
         assertThat($(".selector ul li.classname").chain(new HelperFunction("function").addParam("String").addParam(true).addParam(null).addParam(1.567f).addParam(1).addParam(Long.MAX_VALUE)).get(),
                    is(equalTo("$('.selector ul li.classname').function('String',true,null,1.567,1,9223372036854775807);")));
+    }
+
+    @Test
+    public void $component() {
+        WicketTester tester = new WicketTester();
+        Label component = new Label("someId", "Value");
+        component.setMarkupId("someMarkupId");
+        assertThat($(component).get(), is(equalTo("$('#someMarkupId');")));
+        tester.destroy();
+    }
+
+    @Test
+    public void $componentWithDotsInTheMarkupId() {
+        WicketTester tester = new WicketTester();
+        Label component = new Label("someId", "Value");
+        component.setMarkupId("some.markup.id");
+        assertThat($(component).get(), is(equalTo("$('#some\\\\.markup\\\\.id');")));
+        tester.destroy();
     }
 
     /**

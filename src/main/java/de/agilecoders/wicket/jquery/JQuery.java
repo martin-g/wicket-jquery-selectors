@@ -48,7 +48,8 @@ public final class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component) {
-        return $("#" + Args.notNull(component, "component").getMarkupId(true));
+        CharSequence escapedMarkupId = getMarkupId(component);
+        return $("#" +escapedMarkupId);
     }
 
     /**
@@ -59,7 +60,8 @@ public final class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component, final String... additionalSelector) {
-        final List<String> selector = Generics2.newArrayList("#" + component.getMarkupId(true));
+        CharSequence markupId = getMarkupId(component);
+        final List<String> selector = Generics2.newArrayList("#" + markupId);
 
         if (additionalSelector != null) {
             selector.addAll(Generics2.newArrayList(additionalSelector));
@@ -146,6 +148,18 @@ public final class JQuery implements IClusterable {
     public JQuery chain(final String functionName, final AbstractConfig config) {
         functions.add(new ConfigurableFunction(functionName, config));
         return this;
+    }
+
+    /**
+     * Returns a markup id that is JQuery-safe.
+     *
+     * @param component the component which markup id should be return
+     * @return the component's markup id that is escaped so that it could be used as JQuery selector
+     */
+    private static CharSequence getMarkupId(final Component component) {
+        Args.notNull(component, "component");
+        String markupId = component.getMarkupId(true);
+        return Strings.replaceAll(markupId, ".", "\\\\.");
     }
 
     /**
