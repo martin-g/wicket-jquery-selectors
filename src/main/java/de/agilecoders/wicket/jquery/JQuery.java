@@ -2,11 +2,11 @@ package de.agilecoders.wicket.jquery;
 
 import com.google.common.base.Function;
 import de.agilecoders.wicket.jquery.util.Generics2;
+import de.agilecoders.wicket.jquery.util.Strings2;
 import org.apache.wicket.Component;
 import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.io.IClusterable;
-import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.time.Duration;
 
@@ -48,7 +48,7 @@ public final class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component) {
-        CharSequence escapedMarkupId = getMarkupId(component);
+        CharSequence escapedMarkupId = Strings2.getMarkupId(component);
         return $("#" +escapedMarkupId);
     }
 
@@ -60,7 +60,7 @@ public final class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component, final String... additionalSelector) {
-        CharSequence markupId = getMarkupId(component);
+        CharSequence markupId = Strings2.getMarkupId(component);
         final List<String> selector = Generics2.newArrayList("#" + markupId);
 
         if (additionalSelector != null) {
@@ -148,18 +148,6 @@ public final class JQuery implements IClusterable {
     public JQuery chain(final String functionName, final AbstractConfig config) {
         functions.add(new ConfigurableFunction(functionName, config));
         return this;
-    }
-
-    /**
-     * Returns a markup id that is JQuery-safe.
-     *
-     * @param component the component which markup id should be return
-     * @return the component's markup id that is escaped so that it could be used as JQuery selector
-     */
-    private static CharSequence getMarkupId(final Component component) {
-        Args.notNull(component, "component");
-        String markupId = component.getMarkupId(true);
-        return Strings.replaceAll(markupId, ".", "\\\\.");
     }
 
     /**
