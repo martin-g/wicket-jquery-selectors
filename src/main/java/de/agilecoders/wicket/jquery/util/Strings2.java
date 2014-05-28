@@ -2,7 +2,9 @@ package de.agilecoders.wicket.jquery.util;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.util.lang.Args;
-import org.apache.wicket.util.string.Strings;
+
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 
 /**
  * helper class to handle string interaction
@@ -10,6 +12,11 @@ import org.apache.wicket.util.string.Strings;
  * @author miha
  */
 public final class Strings2 {
+    private static char[] ESCAPE_CHARS = new char[] {
+            '!', '"', '#', '$', '%', '&', '(', ')', '*', '+', ',', '.',
+            '/', ':', ';', '<', '>', '=', '?', '@', '[', ']', '\\', '^', '`',
+            '{', '}', '|', '~', '\''
+    };
 
     /**
      * ensures a non null value.
@@ -41,7 +48,31 @@ public final class Strings2 {
      */
     public static CharSequence escapeMarkupId(final String markupId) {
         Args.notNull(markupId, "markupId");
-        return Strings.replaceAll(markupId, ".", "\\\\.");
+
+        // create pattern for: !"#$%&'()*+,./:;<=>?@[\]^`{|}~
+        final StringCharacterIterator iterator = new StringCharacterIterator(markupId);
+        final StringBuilder result = new StringBuilder((int) (markupId.length() * 1.5));
+        final String escape = "\\";
+
+        char c = iterator.current();
+        while (c != CharacterIterator.DONE) {
+            boolean escaped = false;
+            for (char x : ESCAPE_CHARS) {
+                if (x == c) {
+                    result.append(escape).append(c);
+                    escaped = true;
+                    break;
+                }
+            }
+
+            if (!escaped) {
+                result.append(c);
+            }
+
+            c = iterator.next();
+        }
+
+        return result.toString();
     }
 
     /**
