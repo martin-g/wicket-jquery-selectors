@@ -5,7 +5,7 @@ import org.apache.wicket.util.io.IClusterable;
 import java.util.List;
 
 /**
- * Simple data source for e.g. {@link Typeahead}
+ * Simple data source
  *
  * @author miha
  */
