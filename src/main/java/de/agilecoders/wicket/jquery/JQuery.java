@@ -19,7 +19,7 @@ import static de.agilecoders.wicket.jquery.util.Strings2.nullToEmpty;
  *
  * @author miha
  */
-public final class JQuery implements IClusterable {
+public class JQuery implements IClusterable {
 
     /**
      * Function that maps an {@link IFunction} to its string representation.
