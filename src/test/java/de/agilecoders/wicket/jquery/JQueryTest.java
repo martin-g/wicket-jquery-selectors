@@ -51,7 +51,21 @@ public class JQueryTest {
     @Test
     public void selectorIsAddedToJqueryCall() {
         assertThat($(".selector ul li.classname").get(),
-                   is(equalTo("$('.selector ul li.classname');")));
+                is(equalTo("$('.selector ul li.classname');")));
+    }
+
+    @Test
+    public void closestWithStringSelector() {
+        assertThat($(".selector div").closest("body").get(),
+                   is(equalTo("$('.selector div').closest('body');")));
+    }
+
+    @Test
+    public void closestWithAttrSelector() {
+        assertThat($(".selector div").closest(new Attr.Quoted("body")).get(),
+                   is(equalTo("$('.selector div').closest('body');")));
+        assertThat($(".selector div").closest(new Attr.Plain("document.body")).get(),
+                   is(equalTo("$('.selector div').closest(document.body);")));
     }
 
     @Test
