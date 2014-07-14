@@ -1,6 +1,8 @@
 package de.agilecoders.wicket.jquery;
 
 import de.agilecoders.wicket.jquery.util.CharSequenceWrapper;
+import de.agilecoders.wicket.jquery.util.Strings2;
+import org.apache.wicket.Component;
 import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.util.lang.Args;
 
@@ -71,6 +73,29 @@ public abstract class Attr implements CharSequence {
          */
         protected NullValue() {
             super("null");
+        }
+    }
+
+    /**
+     * markup id jquery selector.
+     */
+    public static class MarkupId extends Attr {
+        /**
+         * Construct.
+         *
+         * @param component the component to extract markup id from
+         */
+        protected MarkupId(Component component) {
+            super("'#" + Strings2.getMarkupId(Args.notNull(component, "component")) + "'");
+        }
+
+        /**
+         * Construct.
+         *
+         * @param markupId the markup id
+         */
+        protected MarkupId(CharSequence markupId) {
+            super("'#" + Strings2.escapeMarkupId(Args.notEmpty(markupId, "markupId")) + "'");
         }
     }
 

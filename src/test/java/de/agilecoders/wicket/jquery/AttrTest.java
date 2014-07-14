@@ -1,11 +1,13 @@
 package de.agilecoders.wicket.jquery;
 
 import de.agilecoders.wicket.jquery.util.Json;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
 import static de.agilecoders.wicket.jquery.JQuery.auto;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AttrTest {
 
@@ -24,6 +26,17 @@ public class AttrTest {
     @Test
     public void quoted() throws Exception {
         assertThat(new Attr.Quoted("value").toString(), is("'value'"));
+    }
+
+    @Test
+    public void markupId() throws Exception {
+        assertThat(new Attr.MarkupId("value").toString(), is("'#value'"));
+
+        WicketTester tester = new WicketTester();
+        Label component = new Label("someId", "Value");
+        component.setMarkupId("someMarkupId");
+        assertThat(new Attr.MarkupId(component).toString(), is("'#someMarkupId'"));
+        tester.destroy();
     }
 
     @Test

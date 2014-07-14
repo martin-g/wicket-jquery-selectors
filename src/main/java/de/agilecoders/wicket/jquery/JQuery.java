@@ -6,12 +6,10 @@ import de.agilecoders.wicket.jquery.util.Generics2;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.io.IClusterable;
-import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
 
 import java.util.List;
 
-import static de.agilecoders.wicket.jquery.util.Strings2.escapeMarkupId;
 import static de.agilecoders.wicket.jquery.util.Strings2.nullToEmpty;
 
 /**
@@ -47,6 +45,26 @@ public class JQuery implements IClusterable {
         } else {
             return Attr.nullValue();
         }
+    }
+
+    /**
+     * creates a quoted markup id selector
+     *
+     * @param component the component to extract markup id
+     * @return plain attribute
+     */
+    public static Attr markupId(final Component component) {
+        return new Attr.MarkupId(component);
+    }
+
+    /**
+     * creates a quoted markup id selector
+     *
+     * @param markupId the markup id
+     * @return plain attribute
+     */
+    public static Attr markupId(final CharSequence markupId) {
+        return new Attr.MarkupId(markupId);
     }
 
     /**
@@ -110,27 +128,7 @@ public class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component) {
-        return $(toIdSelector(component));
-    }
-
-    /**
-     * creates an id selector attribute. The markup id will be escaped ({@link de.agilecoders.wicket.jquery.util.Strings2#escapeMarkupId(CharSequence)})
-     *
-     * @param markupId the markup id
-     * @return id selector as Attr
-     */
-    public static Attr toIdSelector(CharSequence markupId) {
-        return quoted("#" + escapeMarkupId(markupId));
-    }
-
-    /**
-     * creates an id selector attribute. The markup id will be escaped ({@link de.agilecoders.wicket.jquery.util.Strings2#escapeMarkupId(CharSequence)})
-     *
-     * @param component the component to extract markup id
-     * @return id selector as Attr
-     */
-    public static Attr toIdSelector(Component component) {
-        return toIdSelector(Args.notNull(component, "component").getMarkupId(true));
+        return $(markupId(component));
     }
 
     /**
@@ -141,7 +139,7 @@ public class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component, final CharSequence... additionalSelector) {
-        final List<Attr> selectors = Generics2.newArrayList(toIdSelector(component));
+        final List<Attr> selectors = Generics2.newArrayList(markupId(component));
 
         if (additionalSelector != null) {
             for (CharSequence selector : additionalSelector) {
@@ -160,7 +158,7 @@ public class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component, final Attr... additionalSelector) {
-        final List<Attr> selector = Generics2.newArrayList(toIdSelector(component));
+        final List<Attr> selector = Generics2.newArrayList(markupId(component));
 
         if (additionalSelector != null) {
             selector.addAll(Generics2.newArrayList(additionalSelector));
