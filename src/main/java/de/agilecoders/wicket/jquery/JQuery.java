@@ -555,16 +555,20 @@ public class JQuery implements IClusterable {
 
             addParameter(events);
 
-            if (!Strings.isEmpty(selector) && !(selector instanceof Attr.NullValue)) {
+            if (!Attr.isNullOrEmpty(selector)) {
                 addParameter(selector);
             }
 
-            handler.addParameter("evt");
+            if (!Attr.isNullOrEmpty(data)) {
+                // if selector isn't present, add null value.
+                if (Attr.isNullOrEmpty(selector)) {
+                    addParameter(Attr.nullValue());
+                }
 
-            if (data != null && !(data instanceof Attr.NullValue)) {
-                handler.addParameter(data);
+                addParameter(data);
             }
 
+            handler.addParameter("evt");
             addParameter(toParameterValue(handler));
         }
     }

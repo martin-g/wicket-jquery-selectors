@@ -5,12 +5,23 @@ import de.agilecoders.wicket.jquery.util.Strings2;
 import org.apache.wicket.Component;
 import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.util.lang.Args;
+import org.apache.wicket.util.string.Strings;
 
 /**
  * Attr represents a jquery attribute.
  */
 public abstract class Attr implements CharSequence {
     private static final Attr NULL_VALUE = new NullValue();
+
+    /**
+     * checks whether given value is null or empty
+     *
+     * @param attr the attribute to check
+     * @return true, if given attribute is null or empty
+     */
+    public static boolean isNullOrEmpty(Attr attr) {
+        return Strings.isEmpty(attr) || attr instanceof Attr.NullValue;
+    }
 
     private CharSequence selector;
 
