@@ -1,5 +1,6 @@
 package de.agilecoders.wicket.jquery;
 
+import de.agilecoders.wicket.jquery.util.CharSequenceWrapper;
 import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.util.lang.Args;
 
@@ -59,7 +60,7 @@ public abstract class Attr implements CharSequence {
 
     /**
      * NullValue represents a jquery attribute that is "null".
-     *
+     * <p/>
      * <pre>
      *     JQuery.$("selector").closest(new NullValue()); // = $('selector').closest(null);
      * </pre>
@@ -99,6 +100,26 @@ public abstract class Attr implements CharSequence {
          */
         protected Quoted(CharSequence selector) {
             super("'" + JavaScriptUtils.escapeQuotes(selector) + "'");
+        }
+    }
+
+    /**
+     * jquery attribute the value and type will be detect automatically.
+     * <p/>
+     * <pre>
+     *     new Auto("value").toString(); // = 'value'
+     *     new Auto(1234).toString(); // = 1234
+     *     new Auto(Json.parse("{key:1234}")).toString(); // = {key:1234}
+     * </pre>
+     */
+    public static class Auto extends Attr {
+        /**
+         * Construct.
+         *
+         * @param value the attribute value
+         */
+        protected Auto(Object value) {
+            super(new CharSequenceWrapper(value));
         }
     }
 }

@@ -1,15 +1,13 @@
 package de.agilecoders.wicket.jquery;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Function;
+import de.agilecoders.wicket.jquery.util.CharSequenceWrapper;
 import de.agilecoders.wicket.jquery.util.Generics2;
-import de.agilecoders.wicket.jquery.util.Json;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.io.IClusterable;
 import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
-import org.apache.wicket.util.time.Duration;
 
 import java.util.List;
 
@@ -46,6 +44,22 @@ public class JQuery implements IClusterable {
     public static Attr plain(final CharSequence value) {
         if (!Strings.isEmpty(value)) {
             return new Attr.Plain(value);
+        } else {
+            return Attr.nullValue();
+        }
+    }
+
+    /**
+     * creates a auto detect attribute
+     *
+     * @param value the selector
+     * @return the attribute value
+     */
+    public static Attr auto(final Object value) {
+        if (value instanceof Attr) {
+            return (Attr) value;
+        } else if (value != null) {
+            return new Attr.Auto(value);
         } else {
             return Attr.nullValue();
         }
@@ -179,11 +193,30 @@ public class JQuery implements IClusterable {
         return this;
     }
 
+    /**
+     * Attach an event handler function for one or more events to the selected elements. The {@code events} parameter
+     * will be quoted.
+     *
+     * @param events  One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for
+     *                a function that simply does return false.
+     * @return this instance for chaining.
+     */
     public JQuery on(CharSequence events, JavaScriptInlineFunction handler) {
         return chain(OnJqueryFunction.on(events, handler));
     }
 
-
+    /**
+     * Attach an event handler function for one or more events to the selected elements. The {@code events} and
+     * {@code selector} parameter will be quoted.
+     *
+     * @param events   One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event.
+     *                 If the selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler  A function to execute when the event is triggered. The value false is also allowed as a shorthand for
+     *                 a function that simply does return false.
+     * @return this instance for chaining.
+     */
     public JQuery on(CharSequence events, CharSequence selector, JavaScriptInlineFunction handler) {
         return on(quoted(events), quoted(selector), handler);
     }
@@ -191,15 +224,25 @@ public class JQuery implements IClusterable {
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
-     * @param events   the events to listen to
-     * @param selector the
-     * @param handler
-     * @return
+     * @param events   One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event.
+     *                 If the selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler  A function to execute when the event is triggered. The value false is also allowed as a shorthand for
+     *                 a function that simply does return false.
+     * @return this instance for chaining.
      */
     public JQuery on(Attr events, Attr selector, JavaScriptInlineFunction handler) {
         return chain(OnJqueryFunction.on(events, selector, handler));
     }
 
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events  One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for
+     *                a function that simply does return false.
+     * @return this instance for chaining.
+     */
     public JQuery on(Attr events, JavaScriptInlineFunction handler) {
         return on(events, Attr.nullValue(), handler);
     }
@@ -446,7 +489,7 @@ public class JQuery implements IClusterable {
          * @return new {@link OnJqueryFunction} instance
          */
         public static OnJqueryFunction on(final CharSequence events, JavaScriptInlineFunction handler) {
-            return new OnJqueryFunction(quoted(events), Attr.nullValue(), null, handler);
+            return new OnJqueryFunction(quoted(events), Attr.nullValue(), Attr.nullValue(), handler);
         }
 
         /**
@@ -456,7 +499,27 @@ public class JQuery implements IClusterable {
          * @return new {@link OnJqueryFunction} instance
          */
         public static OnJqueryFunction on(final Attr events, final Attr selector, JavaScriptInlineFunction handler) {
-            return new OnJqueryFunction(events, selector, null, handler);
+            return on(events, selector, Attr.nullValue(), handler);
+        }
+
+        /**
+         * creates a new {@link OnJqueryFunction} instance
+         *
+         * @param selector The CSS selector for event delegation
+         * @return new {@link OnJqueryFunction} instance
+         */
+        public static OnJqueryFunction on(final Attr events, final Attr selector, final Attr data, JavaScriptInlineFunction handler) {
+            return new OnJqueryFunction(events, selector, data, handler);
+        }
+
+        /**
+         * creates a new {@link OnJqueryFunction} instance
+         *
+         * @param selector The CSS selector for event delegation
+         * @return new {@link OnJqueryFunction} instance
+         */
+        public static OnJqueryFunction on(final Attr events, final Attr selector, final Object data, JavaScriptInlineFunction handler) {
+            return on(events, selector, auto(data), handler);
         }
 
         /**
@@ -466,7 +529,17 @@ public class JQuery implements IClusterable {
          * @return new {@link OnJqueryFunction} instance
          */
         public static OnJqueryFunction on(final CharSequence events, final CharSequence selector, JavaScriptInlineFunction handler) {
-            return new OnJqueryFunction(quoted(events), quoted(selector), null, handler);
+            return on(quoted(events), quoted(selector), Attr.nullValue(), handler);
+        }
+
+        /**
+         * creates a new {@link OnJqueryFunction} instance
+         *
+         * @param selector The CSS selector for event delegation
+         * @return new {@link OnJqueryFunction} instance
+         */
+        public static OnJqueryFunction on(final CharSequence events, final CharSequence selector, final Object data, JavaScriptInlineFunction handler) {
+            return new OnJqueryFunction(quoted(events), quoted(selector), auto(data), handler);
         }
 
         /**
@@ -479,8 +552,7 @@ public class JQuery implements IClusterable {
          * @param handler  A function to execute when the event is triggered. The value false is also allowed as a shorthand for
          *                 a function that simply does return false.
          */
-        // TODO Add support for 'data' parameter
-        protected OnJqueryFunction(final Attr events, final Attr selector, final CharSequence data, final JavaScriptInlineFunction handler) {
+        protected OnJqueryFunction(final Attr events, final Attr selector, final Attr data, final JavaScriptInlineFunction handler) {
             super("on");
 
             addParameter(events);
@@ -552,25 +624,7 @@ public class JQuery implements IClusterable {
          * @return value as string
          */
         protected final CharSequence toParameterValue(final Object value) {
-            if (value instanceof Long) {
-                return toParameterValue((Long) value);
-            } else if (value instanceof Integer) {
-                return toParameterValue((Integer) value);
-            } else if (value instanceof Boolean) {
-                return toParameterValue((Boolean) value);
-            } else if (value instanceof Float) {
-                return toParameterValue((Float) value);
-            } else if (value instanceof JavaScriptInlineFunction) {
-                return toParameterValue((JavaScriptInlineFunction) value);
-            } else if (value instanceof Duration) {
-                return String.valueOf(((Duration) value).getMilliseconds());
-            } else if (value instanceof Attr) {
-                return value.toString();
-            } else if (value instanceof JsonNode) {
-                return Json.stringify(value);
-            }
-
-            return value != null ? "'" + String.valueOf(value) + "'" : Attr.nullValue();
+            return CharSequenceWrapper.toParameterValue(value);
         }
 
         /**
@@ -580,7 +634,7 @@ public class JQuery implements IClusterable {
          * @return value as string
          */
         protected final CharSequence toParameterValue(final JavaScriptInlineFunction value) {
-            return value != null ? value.build() : Attr.nullValue();
+            return CharSequenceWrapper.toParameterValue(value);
         }
 
         /**
@@ -590,7 +644,7 @@ public class JQuery implements IClusterable {
          * @return value as string
          */
         protected final CharSequence toParameterValue(final Long value) {
-            return value != null ? Long.toString(value) : Attr.nullValue();
+            return CharSequenceWrapper.toParameterValue(value);
         }
 
         /**
@@ -600,7 +654,7 @@ public class JQuery implements IClusterable {
          * @return value as string
          */
         protected final CharSequence toParameterValue(final Integer value) {
-            return value != null ? Integer.toString(value) : Attr.nullValue();
+            return CharSequenceWrapper.toParameterValue(value);
         }
 
         /**
@@ -610,7 +664,7 @@ public class JQuery implements IClusterable {
          * @return value as string
          */
         protected final CharSequence toParameterValue(final Float value) {
-            return value != null ? Float.toString(value) : Attr.nullValue();
+            return CharSequenceWrapper.toParameterValue(value);
         }
 
         /**
@@ -620,7 +674,7 @@ public class JQuery implements IClusterable {
          * @return value as string
          */
         protected final CharSequence toParameterValue(final Boolean value) {
-            return value != null ? Boolean.toString(value) : Attr.nullValue();
+            return CharSequenceWrapper.toParameterValue(value);
         }
     }
 }
