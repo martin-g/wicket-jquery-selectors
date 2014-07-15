@@ -17,6 +17,7 @@ import static de.agilecoders.wicket.jquery.util.Strings2.nullToEmpty;
  *
  * @author miha
  */
+@SuppressWarnings("UnusedDeclaration")
 public class JQuery implements IClusterable {
 
     /**

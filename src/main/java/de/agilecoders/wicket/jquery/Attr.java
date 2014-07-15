@@ -49,6 +49,7 @@ public abstract class Attr implements CharSequence {
         return selector.subSequence(start, end);
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public String toString() {
         return selector.toString();
@@ -61,7 +62,7 @@ public abstract class Attr implements CharSequence {
 
     @Override
     public boolean equals(Object obj) {
-        return selector.equals(obj);
+        return obj instanceof CharSequence && selector.equals(obj);
     }
 
     /**
