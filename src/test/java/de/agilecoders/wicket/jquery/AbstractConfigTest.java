@@ -1,8 +1,12 @@
 package de.agilecoders.wicket.jquery;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.util.Json;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  * Tests for serializing AbstractConfig to JSON
@@ -11,12 +15,20 @@ public class AbstractConfigTest extends Assert {
 
     @Test
     public void simpleConfig() {
-        assertEquals("{\"integer\":1,\"string\":\"1\"}", new SimpleConfig().toJsonString());
+        String value = new SimpleConfig().toJsonString();
+
+        assertThat(value, containsString("\"string\":\"1\""));
+        assertThat(value, containsString("\"integer\":1"));
     }
 
     @Test
     public void nestedConfigs() {
-        assertEquals("{\"testConfig\":{\"integer\":1,\"string\":\"1\"},\"string\":\"2\"}", new NestedConfig().toJsonString());
+        String value = new NestedConfig().toJsonString();
+
+        JsonNode json = Json.parse(value);
+        assertThat(json.get("testConfig").get("string").asText(), is("1"));
+        assertThat(json.get("testConfig").get("integer").asInt(), is(1));
+        assertThat(json.get("string").asText(), is("2"));
     }
 
     @Test
