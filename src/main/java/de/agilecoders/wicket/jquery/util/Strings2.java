@@ -46,11 +46,11 @@ public final class Strings2 {
      * @param markupId the markup id to escape
      * @return the component's markup id that is escaped so that it could be used as JQuery selector
      */
-    public static CharSequence escapeMarkupId(final String markupId) {
+    public static CharSequence escapeMarkupId(final CharSequence markupId) {
         Args.notNull(markupId, "markupId");
 
         // create pattern for: !"#$%&'()*+,./:;<=>?@[\]^`{|}~
-        final StringCharacterIterator iterator = new StringCharacterIterator(markupId);
+        final StringCharacterIterator iterator = new StringCharacterIterator(markupId.toString());
         final StringBuilder result = new StringBuilder((int) (markupId.length() * 1.5));
         final String escape = "\\";
 

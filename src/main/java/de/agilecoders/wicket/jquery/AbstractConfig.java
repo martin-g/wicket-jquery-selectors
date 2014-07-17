@@ -13,6 +13,7 @@ import java.util.Map;
  *
  * @author miha
  */
+@SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractConfig implements IClusterable {
 
     private final Map<String, Object> config;
