@@ -54,7 +54,7 @@ public class JQuery implements IClusterable {
      * @param component the component to extract markup id
      * @return plain attribute
      */
-    public static Attr markupId(final Component component) {
+    public static Attr.MarkupId markupId(final Component component) {
         return new Attr.MarkupId(component);
     }
 
@@ -64,7 +64,7 @@ public class JQuery implements IClusterable {
      * @param markupId the markup id
      * @return plain attribute
      */
-    public static Attr markupId(final CharSequence markupId) {
+    public static Attr.MarkupId markupId(final CharSequence markupId) {
         return new Attr.MarkupId(markupId);
     }
 
@@ -119,7 +119,12 @@ public class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Attr selector) {
-        return new JQuery(selector);
+        if (selector instanceof Attr.MarkupId) {
+            return new JQuery(((Attr.MarkupId) selector).quoted());
+        } else {
+            return new JQuery(selector);
+        }
+
     }
 
     /**
@@ -140,11 +145,12 @@ public class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component, final CharSequence... additionalSelector) {
-        final List<Attr> selectors = Generics2.newArrayList(markupId(component));
+        final List<Attr> selectors = Generics2.newArrayList();
+        selectors.add(markupId(component));
 
         if (additionalSelector != null) {
             for (CharSequence selector : additionalSelector) {
-                selectors.add(quoted(selector));
+                selectors.add(plain(selector));
             }
         }
 
@@ -159,7 +165,8 @@ public class JQuery implements IClusterable {
      * @return new Jquery instance
      */
     public static JQuery $(final Component component, final Attr... additionalSelector) {
-        final List<Attr> selector = Generics2.newArrayList(markupId(component));
+        final List<Attr> selector = Generics2.newArrayList();
+        selector.add(markupId(component));
 
         if (additionalSelector != null) {
             selector.addAll(Generics2.newArrayList(additionalSelector));

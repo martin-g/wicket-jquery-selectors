@@ -92,13 +92,14 @@ public abstract class Attr implements CharSequence {
      * markup id jquery selector.
      */
     public static class MarkupId extends Attr {
+
         /**
          * Construct.
          *
          * @param component the component to extract markup id from
          */
         protected MarkupId(Component component) {
-            super("'#" + Strings2.getMarkupId(Args.notNull(component, "component")) + "'");
+            this(Strings2.getMarkupId(Args.notNull(component, "component")), false);
         }
 
         /**
@@ -107,7 +108,28 @@ public abstract class Attr implements CharSequence {
          * @param markupId the markup id
          */
         protected MarkupId(CharSequence markupId) {
-            super("'#" + Strings2.escapeMarkupId(Args.notEmpty(markupId, "markupId")) + "'");
+            this(Strings2.escapeMarkupId(Args.notEmpty(markupId, "markupId")), false);
+        }
+
+        /**
+         * Construct.
+         *
+         * @param markupId the markup id
+         * @param quote whether to quote markup id or not
+         */
+        private MarkupId(CharSequence markupId, boolean quote) {
+            super(quote ? ("'#" + markupId + "'") : ("#" + markupId));
+        }
+
+        /**
+         * @return the quoted markup id
+         */
+        public MarkupId quoted() {
+            if (toString().charAt(0) == '#') {
+                return new MarkupId(toString().substring(1), true);
+            } else {
+                return this;
+            }
         }
     }
 

@@ -70,6 +70,8 @@ public class CharSequenceWrapper implements CharSequence {
             return toParameterValue((JQuery.JavaScriptInlineFunction) value);
         } else if (value instanceof Duration) {
             return String.valueOf(((Duration) value).getMilliseconds());
+        } else if (value instanceof Attr.MarkupId) {
+            return ((Attr.MarkupId)value).quoted().toString();
         } else if (value instanceof Attr) {
             return value.toString();
         } else if (value instanceof JsonNode) {

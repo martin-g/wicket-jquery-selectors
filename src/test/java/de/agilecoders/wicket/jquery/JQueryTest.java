@@ -101,6 +101,16 @@ public class JQueryTest {
     }
 
     @Test
+    public void $componentWithAdditionalSelectors() {
+        WicketTester tester = new WicketTester();
+        Label component = new Label("someId", "Value");
+        component.setMarkupId("someMarkupId");
+
+        assertThat($(component, "div", "ul").get(), is(equalTo("$('#someMarkupId div ul');")));
+        tester.destroy();
+    }
+
+    @Test
     public void $componentWithDotsInTheMarkupId() {
         WicketTester tester = new WicketTester();
         Label component = new Label("someId", "Value");

@@ -30,12 +30,23 @@ public class AttrTest {
 
     @Test
     public void markupId() throws Exception {
-        assertThat(new Attr.MarkupId("value").toString(), is("'#value'"));
+        assertThat(new Attr.MarkupId("value").quoted().toString(), is("'#value'"));
 
         WicketTester tester = new WicketTester();
         Label component = new Label("someId", "Value");
         component.setMarkupId("someMarkupId");
-        assertThat(new Attr.MarkupId(component).toString(), is("'#someMarkupId'"));
+        assertThat(new Attr.MarkupId(component).quoted().toString(), is("'#someMarkupId'"));
+        tester.destroy();
+    }
+
+    @Test
+    public void markupIdDefault() throws Exception {
+        assertThat(new Attr.MarkupId("value").toString(), is("#value"));
+
+        WicketTester tester = new WicketTester();
+        Label component = new Label("someId", "Value");
+        component.setMarkupId("someMarkupId");
+        assertThat(new Attr.MarkupId(component).toString(), is("#someMarkupId"));
         tester.destroy();
     }
 
