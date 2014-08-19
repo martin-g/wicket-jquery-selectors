@@ -2,9 +2,12 @@ package de.agilecoders.wicket.jquery;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.util.Json;
+
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static de.agilecoders.wicket.jquery.JQuery.$;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -36,6 +39,22 @@ public class AbstractConfigTest extends Assert {
         assertEquals("{\"raw\":Hogan}", new RawValueConfig().toJsonString());
     }
 
+    @Test
+    public void multipleConfigurations() {
+        SimpleConfig configOne = new SimpleConfig();
+        SimpleConfig configTwo = new SimpleConfig();
+        String script = $(".foo").chain("foo", configOne, configTwo).get();
+        assertEquals("$('.foo').foo({\"integer\":1,\"string\":\"1\"},{\"integer\":1,\"string\":\"1\"});", script);
+    }
+
+    @Test
+    public void emptyConfig() {
+        EmptyConfig configOne = new EmptyConfig();
+        SimpleConfig configTwo = new SimpleConfig();
+        String script = $(".foo").chain("foo", configOne, configTwo).get();
+        assertEquals("$('.foo').foo({},{\"integer\":1,\"string\":\"1\"});", script);
+    }
+
     private static class RawValueConfig extends AbstractConfig {
         private static final IKey<Json.RawValue> raw = newKey("raw", null);
 
@@ -52,6 +71,11 @@ public class AbstractConfigTest extends Assert {
             put(string, "1");
             put(integer, 1);
         }
+    }
+
+    private static class EmptyConfig extends AbstractConfig {
+        private static final IKey<String> string = newKey("string", null);
+        private static final IKey<Integer> integer = newKey("integer", null);
     }
 
     private static class NestedConfig extends AbstractConfig {
