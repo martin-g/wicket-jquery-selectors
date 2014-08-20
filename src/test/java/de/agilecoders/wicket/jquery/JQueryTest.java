@@ -119,6 +119,29 @@ public class JQueryTest {
         tester.destroy();
     }
 
+    @Test
+    public void multipleConfigurations() {
+        AbstractConfigTest.SimpleConfig configOne = new AbstractConfigTest.SimpleConfig();
+        AbstractConfigTest.SimpleConfig configTwo = new AbstractConfigTest.SimpleConfig();
+        String script = $(".foo").chain("foo", configOne, configTwo).get();
+        assertThat(script, is(equalTo("$('.foo').foo({\"integer\":1,\"string\":\"1\"},{\"integer\":1,\"string\":\"1\"});")));
+    }
+
+    @Test
+    public void emptyConfigWithExtraConfig() {
+        AbstractConfigTest.EmptyConfig emptyConfig = new AbstractConfigTest.EmptyConfig();
+        AbstractConfigTest.SimpleConfig nonEmptyConfig = new AbstractConfigTest.SimpleConfig();
+        String script = $(".foo").chain("foo", emptyConfig, nonEmptyConfig).get();
+        assertThat(script, is(equalTo("$('.foo').foo({},{\"integer\":1,\"string\":\"1\"});")));
+    }
+
+    @Test
+    public void emptyConfig() {
+        AbstractConfigTest.EmptyConfig emptyConfig = new AbstractConfigTest.EmptyConfig();
+        String script = $(".foo").chain("foo", emptyConfig).get();
+        assertThat(script, is(equalTo("$('.foo').foo();")));
+    }
+
     /**
      * helper to build an {@link IFunction}
      */

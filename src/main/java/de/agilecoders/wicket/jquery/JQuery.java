@@ -417,17 +417,15 @@ public class JQuery implements IClusterable {
             super(functionName);
 
             // if multiple configs are provided, render all parameters, even if empty
-            if (extraConfigs != null) {
-                  addParameter(config.toJsonString());
-            } else if(!config.isEmpty()) {
-              // don't render any parameter if only one is provided and it is empty
-              addParameter(config.toJsonString());
-            }
+            if (extraConfigs != null && extraConfigs.length > 0) {
+                addParameter(config.toJsonString());
 
-            if (extraConfigs != null) {
                 for (AbstractConfig extraConfig : extraConfigs) {
                     addParameter(extraConfig.toJsonString());
                 }
+            } else if(!config.isEmpty()) {
+              // don't render any parameter if only one is provided and it is empty
+              addParameter(config.toJsonString());
             }
         }
     }
