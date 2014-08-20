@@ -1,12 +1,13 @@
 package de.agilecoders.wicket.jquery;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import de.agilecoders.wicket.jquery.util.Json;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
+import com.fasterxml.jackson.databind.JsonNode;
+import de.agilecoders.wicket.jquery.util.Json;
 
 /**
  * Tests for serializing AbstractConfig to JSON
@@ -44,14 +45,19 @@ public class AbstractConfigTest extends Assert {
         }
     }
 
-    private static class SimpleConfig extends AbstractConfig {
+    static class SimpleConfig extends AbstractConfig {
         private static final IKey<String> string = newKey("string", null);
         private static final IKey<Integer> integer = newKey("integer", null);
 
-        private SimpleConfig() {
+        SimpleConfig() {
             put(string, "1");
             put(integer, 1);
         }
+    }
+
+    static class EmptyConfig extends AbstractConfig {
+        private static final IKey<String> string = newKey("string", null);
+        private static final IKey<Integer> integer = newKey("integer", null);
     }
 
     private static class NestedConfig extends AbstractConfig {

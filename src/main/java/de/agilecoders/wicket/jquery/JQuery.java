@@ -321,8 +321,8 @@ public class JQuery implements IClusterable {
      * @param config       the function configuration
      * @return this instance for chaining
      */
-    public JQuery chain(final CharSequence functionName, final AbstractConfig config) {
-        functions.add(new ConfigurableFunction(functionName, config));
+    public JQuery chain(final CharSequence functionName, final AbstractConfig config, AbstractConfig ... extraConfigs) {
+        functions.add(new ConfigurableFunction(functionName, config, extraConfigs));
         return this;
     }
 
@@ -404,10 +404,28 @@ public class JQuery implements IClusterable {
          * @param config       the function configuration
          */
         protected ConfigurableFunction(final CharSequence functionName, final AbstractConfig config) {
+            this(functionName, config, null);
+        }
+
+        /**
+         * Construct.
+         *
+         * @param functionName The function name of this {@link IFunction} implementation
+         * @param config       the function configuration
+         */
+        protected ConfigurableFunction(final CharSequence functionName, final AbstractConfig config, AbstractConfig ... extraConfigs) {
             super(functionName);
 
-            if (!config.isEmpty()) {
+            // if multiple configs are provided, render all parameters, even if empty
+            if (extraConfigs != null && extraConfigs.length > 0) {
                 addParameter(config.toJsonString());
+
+                for (AbstractConfig extraConfig : extraConfigs) {
+                    addParameter(extraConfig.toJsonString());
+                }
+            } else if(!config.isEmpty()) {
+              // don't render any parameter if only one is provided and it is empty
+              addParameter(config.toJsonString());
             }
         }
     }
