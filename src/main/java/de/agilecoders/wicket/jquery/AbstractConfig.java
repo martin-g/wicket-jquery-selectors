@@ -2,19 +2,18 @@ package de.agilecoders.wicket.jquery;
 
 import de.agilecoders.wicket.jquery.util.Json;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.io.IClusterable;
-import org.apache.wicket.util.lang.Objects;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Base configuration class.
  *
- * @author miha
+ * @author Michael Haitz <michael.haitz@agilecoders.de>
  */
 @SuppressWarnings("UnusedDeclaration")
-public abstract class AbstractConfig implements IClusterable {
+public abstract class AbstractConfig extends CombinableConfig {
 
     private final Map<String, Object> config;
 
@@ -22,26 +21,31 @@ public abstract class AbstractConfig implements IClusterable {
      * Construct.
      */
     protected AbstractConfig() {
+        super();
+
         config = new HashMap<String, Object>();
     }
 
     /**
      * @return current configuration as json string
      */
+    @Override
     public final String toJsonString() {
         return Json.stringify(config);
     }
 
     /**
-     * @return a copy of all configurations
+     * @return an immutable view of all configurations
      */
+    @Override
     public final Map<String, Object> all() {
-        return new HashMap<String, Object>(config);
+        return Collections.unmodifiableMap(config);
     }
 
     /**
      * @return true, if no special configuration is set.
      */
+    @Override
     public final boolean isEmpty() {
         return config.isEmpty();
     }
@@ -55,7 +59,8 @@ public abstract class AbstractConfig implements IClusterable {
      * @param key   mandatory parameter
      * @param value mandatory parameter
      */
-    protected final <T> AbstractConfig put(final IKey<T> key, final T value) {
+    @Override
+    public final <T> AbstractConfig put(final IKey<T> key, final T value) {
         if (!key.isDefaultValue(value)) {
             config.put(key.key(), value);
         } else {
@@ -64,13 +69,19 @@ public abstract class AbstractConfig implements IClusterable {
         return this;
     }
 
+    @Override
+    public <T> boolean contains(IKey<T> key) {
+        return config.containsKey(key.key());
+    }
+
     /**
      * removes the given key (and its value) from configuration map.
      *
      * @param key the key to remove
      */
     @SuppressWarnings("unchecked")
-    protected final <T> T remove(final IKey<T> key) {
+    @Override
+    public final <T> T remove(final IKey<T> key) {
         return (T) config.remove(key.key());
     }
 
@@ -95,7 +106,8 @@ public abstract class AbstractConfig implements IClusterable {
      * @return the value.
      */
     @SuppressWarnings("unchecked")
-    protected final <T> T get(final IKey<T> key) {
+    @Override
+    public final <T> T get(final IKey<T> key) {
         T value = (T) config.get(key.key());
 
         return value != null ? value : key.getDefaultValue();
@@ -122,38 +134,4 @@ public abstract class AbstractConfig implements IClusterable {
         return new Key<T>(key, defaultValue);
     }
 
-    /**
-     * Default {@link IKey} implementation
-     */
-    private static final class Key<T> implements IKey<T> {
-        private final String key;
-        private final T defaultValue;
-
-        /**
-         * Construct.
-         *
-         * @param key          string representation of this key
-         * @param defaultValue The default value
-         */
-        private Key(final String key, final T defaultValue) {
-            this.key = key;
-            this.defaultValue = defaultValue;
-        }
-
-        @Override
-        public String key() {
-            return key;
-        }
-
-        @Override
-        public boolean isDefaultValue(final T value) {
-            return Objects.equal(value, defaultValue);
-        }
-
-        @Override
-        public T getDefaultValue() {
-            return defaultValue;
-        }
-
-    }
 }

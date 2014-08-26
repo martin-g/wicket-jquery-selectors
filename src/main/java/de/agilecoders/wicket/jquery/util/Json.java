@@ -1,23 +1,14 @@
 package de.agilecoders.wicket.jquery.util;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.ser.std.RawSerializer;
-import de.agilecoders.wicket.jquery.AbstractConfig;
-import de.agilecoders.wicket.jquery.ConfigModel;
+import de.agilecoders.wicket.jquery.WicketJquerySelectors;
+import de.agilecoders.wicket.jquery.settings.ObjectMapperFactory;
 import org.apache.wicket.util.io.IClusterable;
 import org.apache.wicket.util.lang.Args;
 import org.apache.wicket.util.string.Strings;
-
-import java.io.IOException;
 
 /**
  * Helper functions to handle JsonNode values.
@@ -25,6 +16,13 @@ import java.io.IOException;
  * @author miha
  */
 public final class Json {
+
+    /**
+     * lazy holder to give application the chance to install its own
+     */
+    private static final class Holder {
+        private static final ObjectMapperFactory factory = WicketJquerySelectors.assignedSettingsOrDefault().getObjectMapperFactory();
+    }
 
     /**
      * Private constructor to prevent instantiation.
@@ -38,32 +36,7 @@ public final class Json {
      *         quotes and unquoted keys by default
      */
     private static ObjectMapper createObjectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-        SimpleModule wbModule = new SimpleModule("wicket-bootstrap",
-                new Version(1, 0, 0, null, "de.agilecoders.wicket", "wicket-bootstrap-core"));
-        wbModule.addSerializer(ConfigModel.class, new JsonSerializer<ConfigModel>() {
-            @Override
-            public void serialize(ConfigModel value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeString(value.getObject());
-            }
-        });
-        wbModule.addSerializer(AbstractConfig.class, new JsonSerializer<AbstractConfig>() {
-            @Override
-            public void serialize(AbstractConfig value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeObject(value.toJsonString());
-            }
-        });
-        wbModule.addSerializer(RawValue.class, new RawSerializer<RawValue>(RawValue.class) {
-            @Override
-            public void serialize(RawValue value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeObject(value.value);
-            }
-        });
-        mapper.registerModule(wbModule);
-
-        return mapper;
+        return Holder.factory.newObjectMapper();
     }
 
     /**
@@ -144,7 +117,7 @@ public final class Json {
      * Convert a JsonNode to its string representation. If given
      * value is null an empty json object will returned.
      *
-     * @param json The json object to stringify
+     * @param json The json object to toJsonString
      * @return stringified version of given json object
      */
     public static String stringify(final JsonNode json) {
@@ -155,7 +128,7 @@ public final class Json {
      * Convert an object to a json string representation. If given
      * value is null an empty json object will returned.
      *
-     * @param data The data object to stringify
+     * @param data The data object to toJsonString
      * @return stringified version of given json object
      */
     public static String stringify(final Object data) {
@@ -239,6 +212,10 @@ public final class Json {
 
         public RawValue(String value) {
             this.value = Args.notEmpty(value, "value");
+        }
+
+        public String value() {
+            return value;
         }
     }
 }
