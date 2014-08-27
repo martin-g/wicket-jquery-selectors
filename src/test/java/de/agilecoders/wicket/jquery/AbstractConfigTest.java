@@ -1,13 +1,12 @@
 package de.agilecoders.wicket.jquery;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import de.agilecoders.wicket.jquery.util.Json;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import de.agilecoders.wicket.jquery.util.Json;
+import static de.agilecoders.wicket.jquery.JQuery.$;
+import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Tests for serializing AbstractConfig to JSON
@@ -35,6 +34,31 @@ public class AbstractConfigTest extends Assert {
     @Test
     public void rawValue() {
         assertEquals("{\"raw\":Hogan}", new RawValueConfig().toJsonString());
+    }
+
+    @Test
+    public void multipleConfigurations() {
+        SimpleConfig configOne = new SimpleConfig();
+        SimpleConfig configTwo = new SimpleConfig();
+        String script = $(".foo").chain("foo", configOne, configTwo).get();
+
+        assertThat(script, startsWith("$('.foo').foo({"));
+        assertThat(script, endsWith("});"));
+
+        assertThat(script, containsString("\"integer\":1"));
+        assertThat(script, containsString("\"string\":\"1\""));
+    }
+
+    @Test
+    public void emptyConfig() {
+        EmptyConfig configOne = new EmptyConfig();
+        SimpleConfig configTwo = new SimpleConfig();
+        String script = $(".foo").chain("foo", configOne, configTwo).get();
+
+        assertThat(script, startsWith("$('.foo').foo({},{"));
+        assertThat(script, endsWith("});"));
+        assertThat(script, containsString("\"integer\":1"));
+        assertThat(script, containsString("\"string\":\"1\""));
     }
 
     private static class RawValueConfig extends AbstractConfig {

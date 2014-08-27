@@ -3,13 +3,21 @@ wicket-jquery-selectors
 
 Utility library for working with JQuery and Apache Wicket.
 
+## Configuration
+
+configure wicket-jquery-selectors in application init method (optional)
+
+```java
+WicketJquerySelectors.install(new WicketJquerySelectorsSettings().setObjectMapperFactory(new MyCustomObjectMapperFactory()));
+```
+
 ## Usage
 
 The following example uses the [bootstrap typeahead](http://getbootstrap.com/2.3.2/javascript.html#typeahead) jquery plugin:
 
 ### Config classes
 
-Create a subclass of `AbstractConfig` to build the options object for a JQuery plugin. You can omit
+Create a subclass of `AbstractConfig` (or use one of the existing configs) to build the options object for a JQuery plugin. You can omit
 this step if the JQuery plugin doesn't need any options:
 
 ```java

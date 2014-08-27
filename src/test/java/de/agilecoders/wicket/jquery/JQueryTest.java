@@ -8,6 +8,9 @@ import org.junit.experimental.categories.Category;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
 import static de.agilecoders.wicket.jquery.JQuery.EachJqueryFunction.each;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -77,11 +80,11 @@ public class JQueryTest {
     @Test
     public void chainedFunctionIsAddedToJqueryCall() {
         assertThat($(".selector ul li.classname").chain(new IFunction() {
-            @Override
-            public String build() {
-                return "function()";
-            }
-        }).get(),
+                    @Override
+                    public String build() {
+                        return "function()";
+                    }
+                }).get(),
                    is(equalTo("$('.selector ul li.classname').function();")));
     }
 
@@ -124,7 +127,12 @@ public class JQueryTest {
         AbstractConfigTest.SimpleConfig configOne = new AbstractConfigTest.SimpleConfig();
         AbstractConfigTest.SimpleConfig configTwo = new AbstractConfigTest.SimpleConfig();
         String script = $(".foo").chain("foo", configOne, configTwo).get();
-        assertThat(script, is(equalTo("$('.foo').foo({\"integer\":1,\"string\":\"1\"},{\"integer\":1,\"string\":\"1\"});")));
+        assertThat(script, startsWith("$('.foo').foo({"));
+        assertThat(script, endsWith("});"));
+
+        assertThat(script, containsString("\"integer\":1"));
+        assertThat(script, containsString("\"string\":\"1\""));
+        assertThat(script, containsString("},{"));
     }
 
     @Test
@@ -132,7 +140,11 @@ public class JQueryTest {
         AbstractConfigTest.EmptyConfig emptyConfig = new AbstractConfigTest.EmptyConfig();
         AbstractConfigTest.SimpleConfig nonEmptyConfig = new AbstractConfigTest.SimpleConfig();
         String script = $(".foo").chain("foo", emptyConfig, nonEmptyConfig).get();
-        assertThat(script, is(equalTo("$('.foo').foo({},{\"integer\":1,\"string\":\"1\"});")));
+        assertThat(script, startsWith("$('.foo').foo({"));
+        assertThat(script, endsWith("});"));
+
+        assertThat(script, containsString("\"integer\":1"));
+        assertThat(script, containsString("\"string\":\"1\""));
     }
 
     @Test
