@@ -20,8 +20,19 @@ public class SingletonObjectMapperFactory extends DefaultObjectMapperFactory {
         mapper = super.newObjectMapper();
     }
 
+    /**
+     * Construct.
+     *
+     * @param mapper the object mapper to use
+     */
+    public SingletonObjectMapperFactory(ObjectMapper mapper) {
+        super();
+
+        this.mapper = mapper;
+    }
+
     @Override
-    public ObjectMapper newObjectMapper() {
+    public final ObjectMapper newObjectMapper() {
         return mapper;
     }
 }
