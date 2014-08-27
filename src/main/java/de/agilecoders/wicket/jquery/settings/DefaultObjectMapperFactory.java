@@ -1,19 +1,17 @@
 package de.agilecoders.wicket.jquery.settings;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.RawSerializer;
+
 import de.agilecoders.wicket.jquery.Config;
 import de.agilecoders.wicket.jquery.ConfigModel;
 import de.agilecoders.wicket.jquery.util.Json;
-
-import java.io.IOException;
+import de.agilecoders.wicket.jquery.util.serializer.ConfigModelSerializer;
+import de.agilecoders.wicket.jquery.util.serializer.ConfigSerializer;
+import de.agilecoders.wicket.jquery.util.serializer.RawSerializer;
 
 /**
  * {@link com.fasterxml.jackson.databind.ObjectMapper} factory
@@ -26,24 +24,12 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
      * lazy holder pattern to prevent instantiation of serializers if not used.
      */
     protected static final class Holder {
-        private static final RawSerializer<Json.RawValue> rawSerializer = new RawSerializer<Json.RawValue>(Json.RawValue.class) {
-            @Override
-            public void serialize(Json.RawValue value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeObject(value.value());
-            }
-        };
-        public static JsonSerializer<Config> configSerializer = new JsonSerializer<Config>() {
-            @Override
-            public void serialize(Config value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeObject(value.toJsonString());
-            }
-        };
-        public static JsonSerializer<ConfigModel> configModelSerializer = new JsonSerializer<ConfigModel>() {
-            @Override
-            public void serialize(ConfigModel value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-                jsonGenerator.writeString(value.getObject());
-            }
-        };
+        
+        protected static final RawSerializer RAW_VALUE_SERIALIZER = new RawSerializer();
+
+        protected static final ConfigSerializer CONFIG_SERIALIZER = new ConfigSerializer();
+
+        protected static final ConfigModelSerializer CONFIG_MODEL_SERIALIZER = new ConfigModelSerializer();
     }
 
     /**
@@ -75,9 +61,9 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
      * @return module instance for chaining
      */
     protected Module addSerializer(SimpleModule module) {
-        module.addSerializer(ConfigModel.class, Holder.configModelSerializer);
-        module.addSerializer(Config.class, Holder.configSerializer);
-        module.addSerializer(Json.RawValue.class, Holder.rawSerializer);
+        module.addSerializer(ConfigModel.class, Holder.CONFIG_MODEL_SERIALIZER);
+        module.addSerializer(Config.class, Holder.CONFIG_SERIALIZER);
+        module.addSerializer(Json.RawValue.class, Holder.RAW_VALUE_SERIALIZER);
 
         return module;
     }
