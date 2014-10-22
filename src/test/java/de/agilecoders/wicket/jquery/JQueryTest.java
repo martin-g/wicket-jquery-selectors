@@ -154,6 +154,30 @@ public class JQueryTest {
         assertThat(script, is(equalTo("$('.foo').foo();")));
     }
 
+    @Test
+    public void findNullSelector() {
+        String findNullSelector = $(".foo").find(null).get();
+        assertThat(findNullSelector, is("$('.foo').find();"));
+    }
+
+    @Test
+    public void findEmptySelectorQuoted() {
+        String findEmptySelector = $(".foo").find("").get();
+        assertThat(findEmptySelector, is("$('.foo').find(null);"));
+    }
+
+    @Test
+    public void findEmptySelectorPlain() {
+        String findEmptySelector = $(".foo").find(JQuery.plain("")).get();
+        assertThat(findEmptySelector, is("$('.foo').find(null);"));
+    }
+
+    @Test
+    public void findSelector() {
+        String findEmptySelector = $(".foo").find(".childSelector").get();
+        assertThat(findEmptySelector, is("$('.foo').find('.childSelector');"));
+    }
+
     /**
      * helper to build an {@link IFunction}
      */
