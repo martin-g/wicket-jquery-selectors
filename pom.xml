@@ -10,7 +10,7 @@
 
     <groupId>de.agilecoders.wicket</groupId>
     <artifactId>jquery-selectors</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.1.4</version>
     <packaging>jar</packaging>
 
     <properties>
