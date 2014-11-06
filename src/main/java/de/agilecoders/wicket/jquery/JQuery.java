@@ -276,6 +276,26 @@ public class JQuery implements IClusterable {
     }
 
     /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector.
+     *
+     * @param selector the selector to use (will be quoted).
+     * @return this instance for chaining
+     */
+    public JQuery find(CharSequence selector) {
+        return find(quoted(selector));
+    }
+
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector.
+     *
+     * @param selector the selector to use.
+     * @return this instance for chaining
+     */
+    public JQuery find(Attr selector) {
+        return chain(new FindJqueryFunction(selector));
+    }
+
+    /**
      * adds a chained function to this jquery instance
      *
      * @param functionName the function to add
@@ -454,6 +474,25 @@ public class JQuery implements IClusterable {
             addParameter(toParameterValue(function));
         }
     }
+
+    /**
+     * java abstraction of jQuery find function
+     */
+    public static class FindJqueryFunction extends AbstractFunction {
+
+        /**
+         * Construct.
+         *
+         * @param selector The selector for the child element
+         * @return new {@link FindJqueryFunction} instance
+         */
+        protected FindJqueryFunction(Attr selector) {
+            super("find");
+
+            addParameter(selector);
+        }
+    }
+
 
     /**
      * java abstraction of jquery closest function

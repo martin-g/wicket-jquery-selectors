@@ -19,9 +19,9 @@ public class IModelSerializer extends JsonSerializer<IModel> {
         Object obj = value.getObject();
 
         if (obj instanceof CharSequence) {
-            jsonGenerator.writeString(value.getObject().toString());
+            jsonGenerator.writeString(obj.toString());
         } else {
-            jsonGenerator.writeObject(value.getObject());
+            jsonGenerator.writeObject(obj);
         }
     }
 
