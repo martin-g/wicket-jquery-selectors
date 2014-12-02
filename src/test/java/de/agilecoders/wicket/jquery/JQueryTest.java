@@ -1,5 +1,9 @@
 package de.agilecoders.wicket.jquery;
 
+import de.agilecoders.wicket.jquery.function.AbstractFunction;
+import de.agilecoders.wicket.jquery.function.IFunction;
+import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.util.tester.WicketTester;
 import org.apache.wicket.util.time.Duration;
@@ -7,7 +11,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
-import static de.agilecoders.wicket.jquery.JQuery.EachJqueryFunction.each;
+import static de.agilecoders.wicket.jquery.function.EachJqueryFunction.each;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.startsWith;
@@ -27,14 +31,14 @@ public class JQueryTest {
 
     @Test
     public void eachIsAddedToJqueryCall() {
-        assertThat($(".selector ul li.classname").chain(each(new JQuery.JavaScriptInlineFunction("alert('body');"))).get(),
+        assertThat($(".selector ul li.classname").chain(each(new JavaScriptInlineFunction("alert('body');"))).get(),
                    is(equalTo("$('.selector ul li.classname').each(function(){alert('body');});")));
     }
 
     @Test
     public void twoDifferentInstancesWithSameBodyAreEqual() {
-        JQuery.JavaScriptInlineFunction funcA = new JQuery.JavaScriptInlineFunction("body");
-        JQuery.JavaScriptInlineFunction funcB = new JQuery.JavaScriptInlineFunction("bo" + "dy");
+        JavaScriptInlineFunction funcA = new JavaScriptInlineFunction("body");
+        JavaScriptInlineFunction funcB = new JavaScriptInlineFunction("bo" + "dy");
 
         assertThat(funcA.equals(funcB), is(equalTo(true)));
         assertThat(funcA.equals("body"), is(equalTo(true)));
@@ -43,8 +47,8 @@ public class JQueryTest {
 
     @Test
     public void twoDifferentInstancesWithDifferentBodiesAreUnequal() {
-        JQuery.JavaScriptInlineFunction funcA = new JQuery.JavaScriptInlineFunction("body1");
-        JQuery.JavaScriptInlineFunction funcB = new JQuery.JavaScriptInlineFunction("body2");
+        JavaScriptInlineFunction funcA = new JavaScriptInlineFunction("body1");
+        JavaScriptInlineFunction funcB = new JavaScriptInlineFunction("body2");
 
         assertThat(funcA.equals(funcB), is(equalTo(false)));
         assertThat(funcA.equals("body2"), is(equalTo(false)));
@@ -73,7 +77,7 @@ public class JQueryTest {
 
     @Test
     public void jsFunctionIsAddedToJqueryCall() {
-        assertThat($(".selector ul li.classname").chain(new HelperFunction("setTimeout").addParam(new JQuery.JavaScriptInlineFunction("alert('Hello');")).addParam(Duration.seconds(1))).get(),
+        assertThat($(".selector ul li.classname").chain(new HelperFunction("setTimeout").addParam(new JavaScriptInlineFunction("alert('Hello');")).addParam(Duration.seconds(1))).get(),
                    is(equalTo("$('.selector ul li.classname').setTimeout(function(){alert('Hello');},1000);")));
     }
 
@@ -124,8 +128,8 @@ public class JQueryTest {
 
     @Test
     public void multipleConfigurations() {
-        AbstractConfigTest.SimpleConfig configOne = new AbstractConfigTest.SimpleConfig();
-        AbstractConfigTest.SimpleConfig configTwo = new AbstractConfigTest.SimpleConfig();
+        SimpleConfig configOne = new SimpleConfig();
+        SimpleConfig configTwo = new SimpleConfig();
         String script = $(".foo").chain("foo", configOne, configTwo).get();
         assertThat(script, startsWith("$('.foo').foo({"));
         assertThat(script, endsWith("});"));
@@ -138,7 +142,7 @@ public class JQueryTest {
     @Test
     public void emptyConfigWithExtraConfig() {
         AbstractConfigTest.EmptyConfig emptyConfig = new AbstractConfigTest.EmptyConfig();
-        AbstractConfigTest.SimpleConfig nonEmptyConfig = new AbstractConfigTest.SimpleConfig();
+        SimpleConfig nonEmptyConfig = new SimpleConfig();
         String script = $(".foo").chain("foo", emptyConfig, nonEmptyConfig).get();
         assertThat(script, startsWith("$('.foo').foo({"));
         assertThat(script, endsWith("});"));
@@ -157,7 +161,7 @@ public class JQueryTest {
     @Test
     public void findNullSelector() {
         String findNullSelector = $(".foo").find(null).get();
-        assertThat(findNullSelector, is("$('.foo').find();"));
+        assertThat(findNullSelector, is("$('.foo').find(null);"));
     }
 
     @Test
@@ -181,7 +185,7 @@ public class JQueryTest {
     /**
      * helper to build an {@link IFunction}
      */
-    private static final class HelperFunction extends JQuery.AbstractFunction {
+    private static final class HelperFunction extends AbstractFunction {
 
         /**
          * Construct.
