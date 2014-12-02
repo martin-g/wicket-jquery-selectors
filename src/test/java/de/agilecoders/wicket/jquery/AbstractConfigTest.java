@@ -69,16 +69,6 @@ public class AbstractConfigTest extends Assert {
         }
     }
 
-    static class SimpleConfig extends AbstractConfig {
-        private static final IKey<String> string = newKey("string", null);
-        private static final IKey<Integer> integer = newKey("integer", null);
-
-        SimpleConfig() {
-            put(string, "1");
-            put(integer, 1);
-        }
-    }
-
     static class EmptyConfig extends AbstractConfig {
         private static final IKey<String> string = newKey("string", null);
         private static final IKey<Integer> integer = newKey("integer", null);

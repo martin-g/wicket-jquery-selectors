@@ -2,7 +2,9 @@ package de.agilecoders.wicket.jquery.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.Attr;
-import de.agilecoders.wicket.jquery.JQuery;
+import de.agilecoders.wicket.jquery.Config;
+import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;
+
 import org.apache.wicket.util.time.Duration;
 
 /**
@@ -66,8 +68,8 @@ public class CharSequenceWrapper implements CharSequence {
             return toParameterValue((Boolean) value);
         } else if (value instanceof Float) {
             return toParameterValue((Float) value);
-        } else if (value instanceof JQuery.JavaScriptInlineFunction) {
-            return toParameterValue((JQuery.JavaScriptInlineFunction) value);
+        } else if (value instanceof JavaScriptInlineFunction) {
+            return toParameterValue((JavaScriptInlineFunction) value);
         } else if (value instanceof Duration) {
             return String.valueOf(((Duration) value).getMilliseconds());
         } else if (value instanceof Attr.MarkupId) {
@@ -76,6 +78,8 @@ public class CharSequenceWrapper implements CharSequence {
             return value.toString();
         } else if (value instanceof JsonNode) {
             return Json.stringify(value);
+        } else if (value instanceof Config) {
+            return ((Config)value).toJsonString();
         }
 
         return value != null ? "'" + String.valueOf(value) + "'" : Attr.nullValue();
@@ -87,7 +91,7 @@ public class CharSequenceWrapper implements CharSequence {
      * @param value The value to transform
      * @return value as string
      */
-    public static CharSequence toParameterValue(final JQuery.JavaScriptInlineFunction value) {
+    public static CharSequence toParameterValue(final JavaScriptInlineFunction value) {
         return value != null ? value.build() : Attr.nullValue();
     }
 

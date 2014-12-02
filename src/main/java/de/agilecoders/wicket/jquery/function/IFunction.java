@@ -1,4 +1,4 @@
-package de.agilecoders.wicket.jquery;
+package de.agilecoders.wicket.jquery.function;
 
 import org.apache.wicket.util.io.IClusterable;
 
