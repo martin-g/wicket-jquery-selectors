@@ -1,5 +1,6 @@
 package de.agilecoders.wicket.jquery.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,23 @@ public final class Json {
      */
     private Json() {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Convert a string to a Java value
+     *
+     * @param json Json value to convert.
+     * @param type Expected Java value type.
+     * @param <T>  type of return object
+     * @return casted value of given json object
+     * @throws ParseException to runtime if json node can't be casted to clazz.
+     */
+    public static <T> T fromJson(final String json, final JavaType type) {
+        try {
+            return createObjectMapper().readValue(json, type);
+        } catch (Exception e) {
+            throw new ParseException(e);
+        }
     }
 
     /**
@@ -76,23 +94,6 @@ public final class Json {
     }
 
     /**
-     * Convert a string to a Java value
-     *
-     * @param json Json value to convert.
-     * @param type Expected Java value type.
-     * @param <T>  type of return object
-     * @return casted value of given json object
-     * @throws ParseException to runtime if json node can't be casted to clazz.
-     */
-    public static <T> T fromJson(final String json, final JavaType type) {
-        try {
-            return createObjectMapper().readValue(json, type);
-        } catch (Exception e) {
-            throw new ParseException(e);
-        }
-    }
-
-    /**
      * Convert a JsonNode to a Java value
      *
      * @param json  Json value to convert.
@@ -121,7 +122,11 @@ public final class Json {
      * @return stringified version of given json object
      */
     public static String stringify(final JsonNode json) {
-        return json != null ? json.toString() : "{}";
+        try {
+            return json != null ? createObjectMapper().writeValueAsString(json) : "{}";
+        } catch (JsonProcessingException jpx) {
+            throw new RuntimeException("A problem occurred while stringifying a JsonNode: " + jpx.getMessage(), jpx);
+        }
     }
 
     /**
