@@ -1,11 +1,12 @@
 package de.agilecoders.wicket.jquery;
 
-import de.agilecoders.wicket.jquery.util.Json;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.wicket.model.IModel;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import de.agilecoders.wicket.jquery.util.Json;
 
 /**
  * Base configuration class.
@@ -23,7 +24,7 @@ public abstract class AbstractConfig extends CombinableConfig {
     protected AbstractConfig() {
         super();
 
-        config = new HashMap<String, Object>();
+        config = new LinkedHashMap<String, Object>();
     }
 
     /**
