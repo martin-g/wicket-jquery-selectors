@@ -16,6 +16,6 @@ public class CharSequenceWrapperTest extends Assert {
     @Test
     public void config() {
         CharSequence cs = new CharSequenceWrapper(new SimpleConfig());
-        assertThat(cs.toString(), is(equalTo("{\"integer\":1,\"string\":\"1\"}")));
+        assertThat(cs.toString(), is(equalTo("{\"string\":\"1\",\"integer\":1}")));
     }
 }
