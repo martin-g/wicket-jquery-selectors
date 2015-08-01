@@ -15,6 +15,6 @@ import java.io.IOException;
 public class RawSerializer extends JsonSerializer<Json.RawValue> {
     @Override
     public void serialize(Json.RawValue value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-        jsonGenerator.writeObject(value.value());
+        jsonGenerator.writeRawValue(value.value());
     }
 }

@@ -15,6 +15,6 @@ import java.io.IOException;
 public class ConfigSerializer extends JsonSerializer<Config> {
     @Override
     public void serialize(Config value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-        jsonGenerator.writeObject(value.toJsonString());
+        jsonGenerator.writeRawValue(value.toJsonString());
     }
 }
