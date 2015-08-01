@@ -6,7 +6,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.startsWith;
 
 /**
  * Tests for serializing AbstractConfig to JSON
