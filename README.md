@@ -5,8 +5,9 @@ Utility library for working with JQuery and Apache Wicket.
 
 Current release version:
 
-* For Wicket 7.x use 0.2.0
-* For Wicket 6.x use 0.1.4
+* For Wicket 8.x use 2.x
+* For Wicket 7.x use 0.2.x
+* For Wicket 6.x use 0.1.x
 
 
 ## Configuration
