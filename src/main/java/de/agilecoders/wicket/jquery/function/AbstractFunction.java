@@ -1,5 +1,7 @@
 package de.agilecoders.wicket.jquery.function;
 
+import org.apache.wicket.util.lang.Args;
+
 import de.agilecoders.wicket.jquery.util.CharSequenceWrapper;
 import de.agilecoders.wicket.jquery.util.Generics2;
 
@@ -19,8 +21,17 @@ public abstract class AbstractFunction implements IFunction {
      * @param functionName The function name of this {@link IFunction} implementation
      */
     protected AbstractFunction(final CharSequence functionName) {
-        this.functionName = functionName;
-        this.parameters = Generics2.newArrayList();
+        this(functionName , Generics2.<CharSequence>newArrayList());
+    }
+
+    /**
+     * Construct.
+     *
+     * @param functionName The function name of this {@link IFunction} implementation
+     */
+    protected AbstractFunction(final CharSequence functionName, final List<CharSequence> parameters) {
+        this.functionName = Args.notEmpty(functionName, "functionName");
+        this.parameters = parameters;
     }
 
     @Override
@@ -47,7 +58,7 @@ public abstract class AbstractFunction implements IFunction {
      *
      * @param parameter The parameter to add
      */
-    protected final void addParameter(final CharSequence parameter) {
+    protected void addParameter(final CharSequence parameter) {
         parameters.add(parameter);
     }
 
@@ -57,7 +68,7 @@ public abstract class AbstractFunction implements IFunction {
      * @param value The value to transform
      * @return value as string
      */
-    protected final CharSequence toParameterValue(final Object value) {
+    protected CharSequence toParameterValue(final Object value) {
         return CharSequenceWrapper.toParameterValue(value);
     }
 
@@ -67,7 +78,7 @@ public abstract class AbstractFunction implements IFunction {
      * @param value The value to transform
      * @return value as string
      */
-    protected final CharSequence toParameterValue(final JavaScriptInlineFunction value) {
+    protected CharSequence toParameterValue(final JavaScriptInlineFunction value) {
         return CharSequenceWrapper.toParameterValue(value);
     }
 
@@ -77,7 +88,7 @@ public abstract class AbstractFunction implements IFunction {
      * @param value The value to transform
      * @return value as string
      */
-    protected final CharSequence toParameterValue(final Long value) {
+    protected CharSequence toParameterValue(final Long value) {
         return CharSequenceWrapper.toParameterValue(value);
     }
 
@@ -87,7 +98,7 @@ public abstract class AbstractFunction implements IFunction {
      * @param value The value to transform
      * @return value as string
      */
-    protected final CharSequence toParameterValue(final Integer value) {
+    protected CharSequence toParameterValue(final Integer value) {
         return CharSequenceWrapper.toParameterValue(value);
     }
 
@@ -97,7 +108,7 @@ public abstract class AbstractFunction implements IFunction {
      * @param value The value to transform
      * @return value as string
      */
-    protected final CharSequence toParameterValue(final Float value) {
+    protected CharSequence toParameterValue(final Float value) {
         return CharSequenceWrapper.toParameterValue(value);
     }
 
@@ -107,7 +118,11 @@ public abstract class AbstractFunction implements IFunction {
      * @param value The value to transform
      * @return value as string
      */
-    protected final CharSequence toParameterValue(final Boolean value) {
+    protected CharSequence toParameterValue(final Boolean value) {
         return CharSequenceWrapper.toParameterValue(value);
+    }
+
+    public List<CharSequence> getParameters() {
+        return parameters;
     }
 }
