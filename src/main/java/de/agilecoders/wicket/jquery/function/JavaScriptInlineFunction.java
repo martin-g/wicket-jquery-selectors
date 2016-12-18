@@ -1,6 +1,9 @@
 package de.agilecoders.wicket.jquery.function;
 
-import de.agilecoders.wicket.jquery.JQuery;
+import org.apache.wicket.util.lang.Objects;
+
+import java.util.Collections;
+import java.util.List;
 
 import static de.agilecoders.wicket.jquery.util.Strings2.nullToEmpty;
 
@@ -16,7 +19,16 @@ public class JavaScriptInlineFunction extends AbstractFunction {
      * @param functionBody the function body as string
      */
     public JavaScriptInlineFunction(final String functionBody) {
-        super("function");
+        this(functionBody, Collections.<CharSequence>emptyList());
+    }
+
+    /**
+     * Construct.
+     *
+     * @param functionBody the function body as string
+     */
+    public JavaScriptInlineFunction(final String functionBody, final List<CharSequence> parameters) {
+        super("function", parameters);
 
         this.functionBody = nullToEmpty(functionBody);
     }
@@ -29,7 +41,10 @@ public class JavaScriptInlineFunction extends AbstractFunction {
     @Override
     public boolean equals(Object o) {
         if (o instanceof JavaScriptInlineFunction) {
-            return functionBody.equals(((JavaScriptInlineFunction) o).functionBody);
+            JavaScriptInlineFunction other = (JavaScriptInlineFunction) o;
+            final boolean parametersEqual = Objects.equal(getParameters(), other.getParameters());
+            final boolean functionBodyEqual = Objects.equal(functionBody, other.functionBody);
+            return parametersEqual && functionBodyEqual;
         } else if (o instanceof String) {
             return functionBody.equals(o);
         }
