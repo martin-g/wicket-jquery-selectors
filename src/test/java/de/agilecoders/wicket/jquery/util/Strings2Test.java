@@ -15,10 +15,10 @@ public class Strings2Test {
     @Test
     public void escapeCharacters() {
         assertThat(Strings2.escapeMarkupId("!\"#$%&'()*+,./:;<=>?@[\\]^`{|}~").toString(),
-                   is("\\!\\\"\\#\\$\\%\\&\\'\\(\\)\\*\\+\\,\\.\\/\\:\\;\\<\\=\\>\\?\\@\\[\\\\\\]\\^\\`\\{\\|\\}\\~"));
+                   is("\\\\!\\\\\"\\\\#\\\\$\\\\%\\\\&\\\\'\\\\(\\\\)\\\\*\\\\+\\\\,\\\\.\\\\/\\\\:\\\\;\\\\<\\\\=\\\\>\\\\?\\\\@\\\\[\\\\\\\\\\]\\\\^\\\\`\\\\{\\\\|\\\\}\\\\~"));
 
         assertThat(Strings2.escapeMarkupId("my.custom.markup-id").toString(),
-                   is("my\\.custom\\.markup-id"));
+                   is("my\\\\.custom\\\\.markup-id"));
     }
 
 }
