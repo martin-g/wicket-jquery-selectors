@@ -52,7 +52,7 @@ public final class Strings2 {
         // create pattern for: !"#$%&'()*+,./:;<=>?@[\]^`{|}~
         final StringCharacterIterator iterator = new StringCharacterIterator(markupId.toString());
         final StringBuilder result = new StringBuilder((int) (markupId.length() * 1.5));
-        final String escape = "\\";
+        final String escape = "\\\\";
 
         char c = iterator.current();
         while (c != CharacterIterator.DONE) {

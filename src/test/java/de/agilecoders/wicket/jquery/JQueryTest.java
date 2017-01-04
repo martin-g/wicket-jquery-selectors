@@ -122,7 +122,7 @@ public class JQueryTest {
         WicketTester tester = new WicketTester();
         Label component = new Label("someId", "Value");
         component.setMarkupId("some.markup.id");
-        assertThat($(component).get(), is(equalTo("$('#some\\.markup\\.id');")));
+        assertThat($(component).get(), is(equalTo("$('#some\\\\.markup\\\\.id');")));
         tester.destroy();
     }
 
