@@ -11,7 +11,6 @@ public class FindJqueryFunction extends Function {
      * Construct.
      *
      * @param selector The selector for the child element
-     * @return new {@link FindJqueryFunction} instance
      */
     public FindJqueryFunction(Attr selector) {
         super("find", selector);
