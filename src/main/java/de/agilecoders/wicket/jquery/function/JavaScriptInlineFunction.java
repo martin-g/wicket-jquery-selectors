@@ -2,7 +2,7 @@ package de.agilecoders.wicket.jquery.function;
 
 import org.apache.wicket.util.lang.Objects;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static de.agilecoders.wicket.jquery.util.Strings2.nullToEmpty;
@@ -19,7 +19,7 @@ public class JavaScriptInlineFunction extends AbstractFunction {
      * @param functionBody the function body as string
      */
     public JavaScriptInlineFunction(final String functionBody) {
-        this(functionBody, Collections.<CharSequence>emptyList());
+        this(functionBody, new ArrayList());
     }
 
     /**
