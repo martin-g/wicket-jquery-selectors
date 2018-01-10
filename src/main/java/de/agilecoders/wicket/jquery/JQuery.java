@@ -1,7 +1,5 @@
 package de.agilecoders.wicket.jquery;
 
-import com.google.common.base.Function;
-
 import de.agilecoders.wicket.jquery.function.ClosestJqueryFunction;
 import de.agilecoders.wicket.jquery.function.ConfigurableFunction;
 import de.agilecoders.wicket.jquery.function.FindJqueryFunction;
@@ -16,6 +14,7 @@ import org.apache.wicket.util.io.IClusterable;
 import org.apache.wicket.util.string.Strings;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * The Jquery class helps to keep all javascript jquery scripts type safe.

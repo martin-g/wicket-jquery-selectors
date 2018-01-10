@@ -1,17 +1,17 @@
 package de.agilecoders.wicket.jquery.util;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.StringTokenizer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * helper class to handle creation/transformation/filtering of collections.
@@ -32,7 +32,11 @@ public final class Generics2 {
      * @throws IllegalArgumentException if given array of elements is null
      */
     public static <T> ArrayList<T> newArrayList(T... elements) {
-        return Lists.newArrayList(elements);
+        ArrayList<T> list = new ArrayList();
+        for (T element : elements) {
+            list.add(element);
+        }
+        return list;
     }
 
     /**
@@ -43,7 +47,9 @@ public final class Generics2 {
      * @return a new {@code ArrayList} containing those elements
      */
     public static <T> ArrayList<T> newArrayList(Iterator<? extends T> elements) {
-        return Lists.newArrayList(elements);
+        ArrayList<T> list = new ArrayList();
+        elements.forEachRemaining(element -> list.add(element));
+        return list;
     }
 
     /**
@@ -55,7 +61,11 @@ public final class Generics2 {
      * @throws IllegalArgumentException if given array of elements is null
      */
     public static <T> ArrayList<T> newArrayList(Iterable<? extends T> elements) {
-        return Lists.newArrayList(elements);
+        ArrayList<T> list = new ArrayList();
+        for (T element : elements) {
+            list.add(element);
+        }
+        return list;
     }
 
     /**
@@ -67,7 +77,11 @@ public final class Generics2 {
      * @throws IllegalArgumentException if given array of elements is null
      */
     public static <T> Set<T> newLinkedHashSet(Iterable<? extends T> elements) {
-        return Sets.newLinkedHashSet(elements);
+        LinkedHashSet<T> set = new LinkedHashSet();
+        for (T element : elements) {
+            set.add(element);
+        }
+        return set;
     }
 
     /**
@@ -79,7 +93,11 @@ public final class Generics2 {
      * @throws IllegalArgumentException if given array of elements is null
      */
     public static <T> Set<T> newHashSet(T... elements) {
-        return Sets.newHashSet(elements);
+        HashSet<T> set = new HashSet();
+        for (T element : elements) {
+            set.add(element);
+        }
+        return set;
     }
 
     /**
@@ -90,7 +108,13 @@ public final class Generics2 {
      * @return elements as string
      */
     public static String join(final Iterable<?> elements, final char separator) {
-        return Joiner.on(separator).skipNulls().join(elements);
+        final StringJoiner joiner = new StringJoiner("" + separator);
+        joiner.setEmptyValue("");
+        for (Object element : elements)
+        {
+            joiner.add(element.toString());
+        }
+        return joiner.toString();
     }
 
     /**
@@ -109,7 +133,7 @@ public final class Generics2 {
      * elements}
      */
     public static <P, R> List<R> transform(List<P> elements, Function<P, R> transformer) {
-        return Lists.transform(elements, transformer);
+        return elements.stream().map(transformer).collect(Collectors.toList());
     }
 
     /**
@@ -117,7 +141,7 @@ public final class Generics2 {
      * elements}
      */
     public static <P, R> Set<R> transform(Set<P> elements, Function<P, R> transformer) {
-        return Sets.newHashSet(transform(newArrayList(elements), transformer));
+        return elements.stream().map(transformer).collect(Collectors.toSet());
     }
 
     /**
@@ -125,7 +149,7 @@ public final class Generics2 {
      * elements}
      */
     public static <P, R> List<R> transform(P[] elements, Function<P, R> transformer) {
-        return Lists.transform(newArrayList(elements), transformer);
+        return Arrays.stream(elements).map(transformer).collect(Collectors.toList());
     }
 
     /**
@@ -133,7 +157,7 @@ public final class Generics2 {
      * resulting iterable's iterator does not support {@code remove()}.
      */
     public static <T> List<T> filter(final Iterable<T> unfiltered, final Predicate<T> filter) {
-        return newArrayList(Iterables.filter(unfiltered, filter));
+        return newArrayList(unfiltered).stream().filter(filter).collect(Collectors.toList());
     }
 
     /**
@@ -144,7 +168,13 @@ public final class Generics2 {
      * @return list of values
      */
     public static List<String> split(final CharSequence value, final String separator) {
-        return newArrayList(Splitter.on(separator).omitEmptyStrings().trimResults().split(value));
+        final StringTokenizer tokenizer = new StringTokenizer(value.toString(), separator);
+        List<String> tokens = new ArrayList<>();
+        while (tokenizer.hasMoreTokens())
+        {
+            tokens.add(tokenizer.nextToken());
+        }
+        return tokens;
     }
 
     /**
