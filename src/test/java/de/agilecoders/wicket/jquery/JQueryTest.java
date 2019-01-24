@@ -1,6 +1,7 @@
 package de.agilecoders.wicket.jquery;
 
 import de.agilecoders.wicket.jquery.function.AbstractFunction;
+import de.agilecoders.wicket.jquery.function.Function;
 import de.agilecoders.wicket.jquery.function.IFunction;
 import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;
 
@@ -180,6 +181,16 @@ public class JQueryTest {
     public void findSelector() {
         String findEmptySelector = $(".foo").find(".childSelector").get();
         assertThat(findEmptySelector, is("$('.foo').find('.childSelector');"));
+    }
+
+    /**
+     * https://github.com/l0rdn1kk0n/wicket-jquery-selectors/issues/27
+     */
+    @Test
+    public void noSelector() {
+        String js = $().chain(new Function("extend", true, JQuery.plain("Chart.default.global"),
+                JQuery.plain("{defaultFontColor : 'red'}"))).get();
+        assertThat(js, is("$.extend(true,Chart.default.global,{defaultFontColor : 'red'});"));
     }
 
     /**

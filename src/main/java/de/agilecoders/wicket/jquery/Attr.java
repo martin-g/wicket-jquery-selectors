@@ -13,6 +13,7 @@ import org.apache.wicket.util.string.Strings;
  */
 public abstract class Attr implements CharSequence, IClusterable {
     private static final Attr NULL_VALUE = new NullValue();
+    private static final Attr NO_SELECTOR = new NoSelector();
 
     /**
      * checks whether given value is null or empty
@@ -66,6 +67,10 @@ public abstract class Attr implements CharSequence, IClusterable {
         return obj instanceof CharSequence && selector.equals(obj);
     }
 
+    public static Attr noSelector() {
+        return NO_SELECTOR;
+    }
+
     /**
      * @return null value instance
      */
@@ -86,6 +91,22 @@ public abstract class Attr implements CharSequence, IClusterable {
          */
         protected NullValue() {
             super("null");
+        }
+    }
+
+    /**
+     * NoSelector represents the static object of jQuery, e.g. <em>$.extend()</em>.
+     * <p/>
+     * <pre>
+     *     JQuery.$().extend(true, someObject, {"extra": "field"});
+     * </pre>
+     */
+    public static class NoSelector extends Attr {
+        /**
+         * Construct.
+         */
+        protected NoSelector() {
+            super("$.noSelector");
         }
     }
 

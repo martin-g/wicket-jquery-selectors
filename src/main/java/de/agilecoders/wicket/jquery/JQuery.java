@@ -179,6 +179,10 @@ public class JQuery implements IClusterable {
         return $(Generics2.join(selector, ' '));
     }
 
+    public static JQuery $() {
+        return $(Attr.noSelector());
+    }
+
     private final Attr selector;
     private final List<IFunction> functions;
 
@@ -321,7 +325,14 @@ public class JQuery implements IClusterable {
      * @return this jquery chain as string but doesn't close chain with semicolon.
      */
     public String build() {
-        return "$(" + selector + ")" + createFunctionString();
+        StringBuilder builder = new StringBuilder();
+        if (selector == Attr.noSelector()) {
+            builder.append("$");
+        } else {
+            builder.append("$(").append(selector).append(")");
+        }
+        builder.append(createFunctionString());
+        return builder.toString();
     }
 
     /**
