@@ -20,7 +20,7 @@
         <mvn.build.java.version>${java.version}</mvn.build.java.version>
         <mvn.version>3.0.0</mvn.version>
 
-        <com.fasterxml.jackson.version>2.9.9</com.fasterxml.jackson.version>
+        <com.fasterxml.jackson.version>2.9.10</com.fasterxml.jackson.version>
         <junit.version>4.12</junit.version>
         <hamcrest.version>2.1</hamcrest.version>
         <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
