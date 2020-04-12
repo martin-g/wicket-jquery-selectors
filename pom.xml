@@ -22,7 +22,7 @@
 
         <com.fasterxml.jackson.version>2.9.10</com.fasterxml.jackson.version>
         <junit.version>4.13</junit.version>
-        <hamcrest.version>2.1</hamcrest.version>
+        <hamcrest.version>2.2</hamcrest.version>
         <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
         <wicket.version>9.0.0-M5</wicket.version>
     </properties>
@@ -109,7 +109,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${mvn.build.java.version}</source>
                     <target>${mvn.build.java.version}</target>
@@ -123,7 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <detectOfflineLinks>false</detectOfflineLinks>
                     <minmemory>128m</minmemory>
@@ -157,7 +157,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -170,7 +170,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <goals>
