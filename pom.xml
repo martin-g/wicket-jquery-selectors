@@ -24,7 +24,7 @@
         <junit.version>4.13</junit.version>
         <hamcrest.version>2.1</hamcrest.version>
         <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
-        <wicket.version>9.0.0-M4</wicket.version>
+        <wicket.version>9.0.0-M5</wicket.version>
     </properties>
 
     <scm>
