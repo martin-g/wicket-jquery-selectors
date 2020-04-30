@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.assertNull;
 
 /**
  * Tests the {@code Json} class
@@ -49,18 +50,19 @@ public class JsonTest {
         assertThat(Json.stringify((Object) null), is(equalTo("{}")));
     }
 
-    @Test(expected = Json.ParseException.class)
-    public void fromNullJsonNodeThrowsParseException() throws Exception {
-        Json.fromJson((JsonNode) null, Map.class);
+    @Test
+    public void fromNullJsonNodeThrowsParseException() {
+        final Map map = Json.fromJson((JsonNode) null, Map.class);
+        assertNull(map);
     }
 
     @Test(expected = Json.ParseException.class)
-    public void fromNullJsonObjectThrowsParseException() throws Exception {
+    public void fromNullJsonObjectThrowsParseException() {
         Json.fromJson((String) null, JQuery.class);
     }
 
     @Test
-    public void fromNullJsonObjectToMapWorks() throws Exception {
+    public void fromNullJsonObjectToMapWorks()  {
         Json.fromJson((String) null, Map.class);
     }
 
@@ -70,7 +72,7 @@ public class JsonTest {
 
         assertThat(String.valueOf(data.get("key")), is(equalTo("value")));
         assertThat(String.valueOf(data.get("1")), is(equalTo("value2")));
-        assertThat((Boolean) data.get("3"), is(equalTo(true)));
+        assertThat(data.get("3"), is(equalTo(true)));
         assertThat(((Double) data.get("double")), is(equalTo(1.2)));
         assertThat(data.get(""), is(equalTo(null)));
     }
