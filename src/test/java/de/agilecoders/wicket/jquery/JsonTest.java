@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Tests the {@code Json} class
@@ -49,9 +50,10 @@ public class JsonTest {
         assertThat(Json.stringify((Object) null), is(equalTo("{}")));
     }
 
-    @Test(expected = Json.ParseException.class)
-    public void fromNullJsonNodeThrowsParseException() throws Exception {
-        Json.fromJson((JsonNode) null, Map.class);
+    @Test
+    public void fromNullJsonNodeReturnsNull() throws Exception {
+        final Map map = Json.fromJson((JsonNode) null, Map.class);
+        assertNull(map);
     }
 
     @Test(expected = Json.ParseException.class)
