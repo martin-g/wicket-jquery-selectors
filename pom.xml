@@ -20,11 +20,11 @@
         <mvn.build.java.version>${java.version}</mvn.build.java.version>
         <mvn.version>3.0.0</mvn.version>
 
-        <com.fasterxml.jackson.version>2.10.3</com.fasterxml.jackson.version>
-        <junit.version>4.13</junit.version>
-        <hamcrest.version>2.1</hamcrest.version>
-        <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
-        <wicket.version>8.8.0</wicket.version>
+        <com.fasterxml.jackson.version>2.10.5</com.fasterxml.jackson.version>
+        <junit.version>4.13.1</junit.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <maven-bundle-plugin.version>5.1.1</maven-bundle-plugin.version>
+        <wicket.version>8.9.0</wicket.version>
     </properties>
 
     <scm>
