@@ -49,7 +49,7 @@ public class JsonTest {
         assertThat(Json.stringify((Object) null), is(equalTo("{}")));
     }
 
-    @Test(expected = Json.ParseException.class)
+    @Test
     public void fromNullJsonNodeThrowsParseException() throws Exception {
         Json.fromJson((JsonNode) null, Map.class);
     }
