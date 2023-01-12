@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * {@link de.agilecoders.wicket.jquery.Config} json serializer
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public class ConfigSerializer extends JsonSerializer<Config> {
     @Override

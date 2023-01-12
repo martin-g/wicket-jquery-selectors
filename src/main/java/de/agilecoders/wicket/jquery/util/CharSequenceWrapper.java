@@ -5,7 +5,7 @@ import de.agilecoders.wicket.jquery.Attr;
 import de.agilecoders.wicket.jquery.Config;
 import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;
 
-import org.apache.wicket.util.time.Duration;
+import java.time.Duration;
 
 /**
  * cast given value to a {@link java.lang.CharSequence} and provides same interface.
@@ -71,7 +71,7 @@ public class CharSequenceWrapper implements CharSequence {
         } else if (value instanceof JavaScriptInlineFunction) {
             return toParameterValue((JavaScriptInlineFunction) value);
         } else if (value instanceof Duration) {
-            return String.valueOf(((Duration) value).getMilliseconds());
+            return String.valueOf(((Duration) value).toMillis());
         } else if (value instanceof Attr.MarkupId) {
             return ((Attr.MarkupId)value).quoted().toString();
         } else if (value instanceof Attr) {

@@ -11,7 +11,7 @@ import de.agilecoders.wicket.jquery.util.Json;
 /**
  * Base configuration class.
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 @SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractConfig extends CombinableConfig {

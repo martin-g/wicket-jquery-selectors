@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * special config that holds two configurations. One base configuration and a fallback configuration.
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public class ConfigWithFallback extends CombinableConfig {
 

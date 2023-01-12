@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * base wicket-jquery-selectors class that is responsible for installation of custom settings.
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public final class WicketJquerySelectors {
     private static final Logger LOG = LoggerFactory.getLogger("wicket-jquery-selectors");
