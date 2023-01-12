@@ -3,7 +3,7 @@ package de.agilecoders.wicket.jquery;
 /**
  * default mutable configuration
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public class MutableConfig extends AbstractConfig {
 

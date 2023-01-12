@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * {@link com.fasterxml.jackson.databind.ObjectMapper} factory
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public interface ObjectMapperFactory {
 

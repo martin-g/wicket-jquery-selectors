@@ -1,7 +1,7 @@
 package de.agilecoders.wicket.jquery;
 
 /**
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public abstract class CombinableConfig implements Config {
 

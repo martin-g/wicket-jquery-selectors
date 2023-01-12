@@ -3,7 +3,7 @@ package de.agilecoders.wicket.jquery.settings;
 /**
  * wicket jquery selectors settings.
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz
  */
 public interface IWicketJquerySelectorsSettings {
 

@@ -7,7 +7,7 @@ import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.util.tester.WicketTester;
-import org.apache.wicket.util.time.Duration;
+import java.time.Duration;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -78,7 +78,7 @@ public class JQueryTest {
 
     @Test
     public void jsFunctionIsAddedToJqueryCall() {
-        assertThat($(".selector ul li.classname").chain(new HelperFunction("setTimeout").addParam(new JavaScriptInlineFunction("alert('Hello');")).addParam(Duration.seconds(1))).get(),
+        assertThat($(".selector ul li.classname").chain(new HelperFunction("setTimeout").addParam(new JavaScriptInlineFunction("alert('Hello');")).addParam(Duration.ofSeconds(1))).get(),
                    is(equalTo("$('.selector ul li.classname').setTimeout(function(){alert('Hello');},1000);")));
     }
 
