@@ -21,12 +21,12 @@
         <mvn.build.java.version>${java.version}</mvn.build.java.version>
         <mvn.version>3.0.0</mvn.version>
 
-        <com.fasterxml.jackson.version>2.14.1</com.fasterxml.jackson.version>
-        <junit.version>4.13.2</junit.version>
+        <com.fasterxml.jackson.version>2.15.2</com.fasterxml.jackson.version>
+        <junit.version>5.10.0</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
         <wicket.version>10.0.0-M1</wicket.version>
         <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
-        <logback.version>1.4.5</logback.version>
+        <logback.version>1.4.11</logback.version>
 
         <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -90,16 +90,16 @@
 
         <!-- Test dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hamcrest</groupId>
-                    <artifactId>hamcrest-core</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

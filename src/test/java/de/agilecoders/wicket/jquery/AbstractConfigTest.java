@@ -1,9 +1,10 @@
 package de.agilecoders.wicket.jquery;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.util.Json;
-import org.junit.Assert;
-import org.junit.Test;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -11,10 +12,12 @@ import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Tests for serializing AbstractConfig to JSON
  */
-public class AbstractConfigTest extends Assert {
+public class AbstractConfigTest {
 
     @Test
     public void simpleConfig() {
