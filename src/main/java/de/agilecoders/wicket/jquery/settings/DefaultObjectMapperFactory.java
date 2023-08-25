@@ -16,7 +16,7 @@ import de.agilecoders.wicket.jquery.util.serializer.RawSerializer;
 /**
  * {@link com.fasterxml.jackson.databind.ObjectMapper} factory
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public class DefaultObjectMapperFactory implements ObjectMapperFactory {
 
@@ -24,7 +24,7 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
      * lazy holder pattern to prevent instantiation of serializers if not used.
      */
     protected static final class Holder {
-        
+
         protected static final RawSerializer RAW_VALUE_SERIALIZER = new RawSerializer();
 
         protected static final ConfigSerializer CONFIG_SERIALIZER = new ConfigSerializer();

@@ -2,13 +2,13 @@ package de.agilecoders.wicket.jquery.function;
 
 import de.agilecoders.wicket.jquery.JQuery;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class FindJqueryFunctionTest extends Assert {
+import org.junit.jupiter.api.Test;
+
+public class FindJqueryFunctionTest {
 
     @Test
     public void find() {

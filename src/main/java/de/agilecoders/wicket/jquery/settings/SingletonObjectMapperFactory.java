@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * special {@link DefaultObjectMapperFactory} that holds mapper as singleton instance.
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public class SingletonObjectMapperFactory extends DefaultObjectMapperFactory {
 

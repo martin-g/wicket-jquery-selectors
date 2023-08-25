@@ -1,9 +1,9 @@
 package de.agilecoders.wicket.jquery.util;
 
-import org.junit.Test;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * tests the {@link de.agilecoders.wicket.jquery.util.Strings2} class

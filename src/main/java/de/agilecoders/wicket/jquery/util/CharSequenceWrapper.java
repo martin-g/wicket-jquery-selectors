@@ -72,6 +72,8 @@ public class CharSequenceWrapper implements CharSequence {
             return toParameterValue((JavaScriptInlineFunction) value);
         } else if (value instanceof Duration) {
             return String.valueOf(((Duration) value).getMilliseconds());
+        } else if (value instanceof java.time.Duration) {
+            return String.valueOf(((java.time.Duration) value).toMillis());
         } else if (value instanceof Attr.MarkupId) {
             return ((Attr.MarkupId)value).quoted().toString();
         } else if (value instanceof Attr) {

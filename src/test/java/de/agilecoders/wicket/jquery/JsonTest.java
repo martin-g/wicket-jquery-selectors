@@ -3,8 +3,6 @@ package de.agilecoders.wicket.jquery;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.agilecoders.wicket.jquery.util.Json;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +15,17 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the {@code Json} class
  *
  * @author miha
  */
-@Category(TestCategory.UnitTest.class)
+@Tag("unitTest")
 public class JsonTest {
     private static final String JSON_STRING = "{\"key\":\"value\",\"3\":true,\"double\":1.2,\"\":null,"
                                               + "\"1\":\"value2\"}";
@@ -56,9 +58,9 @@ public class JsonTest {
         assertThat(map, is(nullValue()));
     }
 
-    @Test(expected = Json.ParseException.class)
+    @Test
     public void fromNullJsonObjectThrowsParseException() throws Exception {
-        Json.fromJson((String) null, JQuery.class);
+        assertThrows(Json.ParseException.class, () -> Json.fromJson((String) null, JQuery.class));
     }
 
     @Test
@@ -138,9 +140,9 @@ public class JsonTest {
         assertThat(Json.parse(null), is(instanceOf(ObjectNode.class)));
     }
 
-    @Test(expected = Json.ParseException.class)
+    @Test
     public void parseThrowsExceptionForInvalidJsonNode() throws Exception {
-        Json.parse("{1:[}");
+        assertThrows(Json.ParseException.class, () -> Json.parse("{1:[}"));
     }
 
     @Test

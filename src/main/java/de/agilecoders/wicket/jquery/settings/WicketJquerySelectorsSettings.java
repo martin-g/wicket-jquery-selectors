@@ -3,7 +3,7 @@ package de.agilecoders.wicket.jquery.settings;
 /**
  * default settings implementation.
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public class WicketJquerySelectorsSettings implements IWicketJquerySelectorsSettings {
 
