@@ -4,7 +4,7 @@
 
     <groupId>de.agilecoders.wicket</groupId>
     <artifactId>jquery-selectors</artifactId>
-    <version>4.0.5-SNAPSHOT</version>
+    <version>4.0.5</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -34,7 +34,7 @@
         <connection>scm:git:git://github.com/l0rdn1kk0n/wicket-jquery-selectors.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/l0rdn1kk0n/wicket-jquery-selectors.git</developerConnection>
         <url>https://github.com/l0rdn1kk0n/wicket-jquery-selectors/</url>
-        <tag>HEAD</tag>
+        <tag>jquery-selectors-4.0.5</tag>
     </scm>
 
     <licenses>
