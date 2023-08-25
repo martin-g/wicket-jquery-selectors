@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-
     <groupId>de.agilecoders.wicket</groupId>
     <artifactId>jquery-selectors</artifactId>
     <version>4.0.1-SNAPSHOT</version>
@@ -55,11 +49,6 @@
         <system>GitHub</system>
         <url>https://github.com/l0rdn1kk0n/wicket-jquery-selectors/issues</url>
     </issueManagement>
-
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>https://travis-ci.org/l0rdn1kk0n/wicket-jquery-selectors</url>
-    </ciManagement>
 
     <dependencies>
         <dependency>
