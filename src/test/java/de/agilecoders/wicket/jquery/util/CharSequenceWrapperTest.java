@@ -2,16 +2,16 @@ package de.agilecoders.wicket.jquery.util;
 
 import de.agilecoders.wicket.jquery.SimpleConfig;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for CharSequenceWrapper
  */
-public class CharSequenceWrapperTest extends Assert {
+public class CharSequenceWrapperTest {
 
     @Test
     public void config() {

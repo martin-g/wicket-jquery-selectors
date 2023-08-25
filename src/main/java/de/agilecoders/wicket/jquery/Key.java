@@ -5,7 +5,7 @@ import org.apache.wicket.util.lang.Objects;
 /**
  * Default {@link IKey} implementation
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public class Key<T> implements IKey<T> {
     private final String key;

@@ -3,11 +3,12 @@ package de.agilecoders.wicket.jquery;
 import de.agilecoders.wicket.jquery.util.Json;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Test;
 
 import static de.agilecoders.wicket.jquery.JQuery.auto;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 public class AttrTest {
 

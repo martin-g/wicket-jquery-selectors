@@ -1,12 +1,12 @@
 package de.agilecoders.wicket.jquery.function;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class EachJqueryFunctionTest extends Assert {
+import org.junit.jupiter.api.Test;
+
+public class EachJqueryFunctionTest {
 
     @Test
     public void each() {

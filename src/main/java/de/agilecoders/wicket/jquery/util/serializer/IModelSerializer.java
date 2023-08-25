@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * {@link IModel} json serializer
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public class IModelSerializer extends JsonSerializer<IModel> {
 

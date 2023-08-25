@@ -21,11 +21,12 @@
         <mvn.build.java.version>${java.version}</mvn.build.java.version>
         <mvn.version>3.0.0</mvn.version>
 
-        <com.fasterxml.jackson.version>2.11.4</com.fasterxml.jackson.version>
-        <junit.version>4.13.2</junit.version>
+        <com.fasterxml.jackson.version>2.15.2</com.fasterxml.jackson.version>
+        <junit.version>5.10.0</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <logback.version>1.4.11</logback.version>
         <maven-bundle-plugin.version>5.1.2</maven-bundle-plugin.version>
-        <wicket.version>9.13.0</wicket.version>
+        <wicket.version>9.14.0</wicket.version>
     </properties>
 
     <scm>
@@ -82,21 +83,21 @@
 
         <!-- Test dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hamcrest</groupId>
-                    <artifactId>hamcrest-core</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -138,7 +139,7 @@
                     <notimestamp>true</notimestamp>
                     <quiet>true</quiet>
                     <links>
-                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/index.html</link>
+                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                         <link>http://ci.apache.org/projects/wicket/apidocs/9.x</link>
                         <link>http://logback.qos.ch/apidocs</link>
                     </links>

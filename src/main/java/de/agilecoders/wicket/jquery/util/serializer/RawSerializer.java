@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * {@link de.agilecoders.wicket.jquery.util.Json.RawValue} json serializer
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public class RawSerializer extends JsonSerializer<Json.RawValue> {
     @Override

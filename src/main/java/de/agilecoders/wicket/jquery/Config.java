@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * configuration interface
  *
- * @author Michael Haitz <michael.haitz@agilecoders.de>
+ * @author Michael Haitz michael.haitz@agilecoders.de
  */
 public interface Config extends IClusterable {
 
