@@ -2,11 +2,12 @@ package de.agilecoders.wicket.jquery;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.util.Json;
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MutableConfigTest {
     private static Key<String> key1 = new Key<String>("key1", "defaultValue");
@@ -22,7 +23,7 @@ public class MutableConfigTest {
 
     private Config combined;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         base = new MutableConfig()
                 .put(key1, "value1")

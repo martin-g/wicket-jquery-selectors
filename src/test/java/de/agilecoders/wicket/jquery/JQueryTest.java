@@ -7,9 +7,6 @@ import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.util.tester.WicketTester;
-import java.time.Duration;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
 import static de.agilecoders.wicket.jquery.function.EachJqueryFunction.each;
@@ -21,13 +18,17 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+import java.time.Duration;
+
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the {@link JQuery} class
  *
  * @author miha
  */
-@Category(TestCategory.UnitTest.class)
+@Tag("unitTest")
 public class JQueryTest {
 
     @Test
