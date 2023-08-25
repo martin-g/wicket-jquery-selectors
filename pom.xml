@@ -122,7 +122,6 @@
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <showDeprecation>true</showDeprecation>
                         <showWarnings>true</showWarnings>
-                        <optimize>true</optimize>
                     </configuration>
                 </plugin>
                 <plugin>
