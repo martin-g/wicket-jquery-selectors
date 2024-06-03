@@ -20,7 +20,7 @@ version: 2
 updates:
 
   - package-ecosystem: "maven"
-    directory: "/lang/java/"
+    directory: "/"
     schedule:
       interval: "weekly"
       day: "sunday"
