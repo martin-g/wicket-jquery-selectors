@@ -21,7 +21,7 @@
         <mvn.build.java.version>${java.version}</mvn.build.java.version>
         <mvn.version>3.0.0</mvn.version>
 
-        <com.fasterxml.jackson.version>2.17.2</com.fasterxml.jackson.version>
+        <com.fasterxml.jackson.version>2.18.0</com.fasterxml.jackson.version>
         <junit.version>5.11.1</junit.version>
         <hamcrest.version>3.0</hamcrest.version>
         <wicket.version>10.2.0</wicket.version>
