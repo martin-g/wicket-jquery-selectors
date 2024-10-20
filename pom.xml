@@ -26,7 +26,7 @@
         <hamcrest.version>3.0</hamcrest.version>
         <wicket.version>10.2.0</wicket.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
-        <logback.version>1.5.10</logback.version>
+        <logback.version>1.5.11</logback.version>
 
         <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
