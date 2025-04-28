@@ -29,6 +29,18 @@
         <wicket.version>9.21.0</wicket.version>
     </properties>
 
+    <developers>
+        <developer>
+            <id>martin-g</id>
+            <name>Martin Grigorov</name>
+            <email>mgrigorov@apache.org</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+
     <scm>
         <connection>scm:git:git://github.com/l0rdn1kk0n/wicket-jquery-selectors.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/l0rdn1kk0n/wicket-jquery-selectors.git</developerConnection>
