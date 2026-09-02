@@ -1,10 +1,11 @@
 package de.agilecoders.wicket.jquery.settings;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.core.Version;
+import tools.jackson.core.json.JsonReadFeature;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
 
 import de.agilecoders.wicket.jquery.Config;
 import de.agilecoders.wicket.jquery.ConfigModel;
@@ -14,7 +15,7 @@ import de.agilecoders.wicket.jquery.util.serializer.ConfigSerializer;
 import de.agilecoders.wicket.jquery.util.serializer.RawSerializer;
 
 /**
- * {@link com.fasterxml.jackson.databind.ObjectMapper} factory
+ * {@link tools.jackson.databind.ObjectMapper} factory
  *
  * @author Michael Haitz
  */
@@ -44,13 +45,15 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
      */
     @Override
     public ObjectMapper newObjectMapper() {
-        return configure(new ObjectMapper()).registerModule(newModule());
+        return configure(JsonMapper.builder())
+            .addModule(newModule())
+            .build();
     }
 
     /**
      * @return new mapper module
      */
-    protected Module newModule() {
+    protected JacksonModule newModule() {
         return addSerializer(new SimpleModule("wicket-jquery-selectors", new Version(1, 0, 0, null, "de.agilecoders.wicket", "wicket-jquery-selectors")));
     }
 
@@ -60,7 +63,7 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
      * @param module the module to extend
      * @return module instance for chaining
      */
-    protected Module addSerializer(SimpleModule module) {
+    protected JacksonModule addSerializer(SimpleModule module) {
         module.addSerializer(ConfigModel.class, Holder.CONFIG_MODEL_SERIALIZER);
         module.addSerializer(Config.class, Holder.CONFIG_SERIALIZER);
         module.addSerializer(Json.RawValue.class, Holder.RAW_VALUE_SERIALIZER);
@@ -74,10 +77,9 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
      * @param mapper the object to configure
      * @return mapper instance for chaining
      */
-    protected ObjectMapper configure(ObjectMapper mapper) {
-        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-
-        return mapper;
+    protected JsonMapper.Builder configure(JsonMapper.Builder builder) {
+        return builder
+            .configure(JsonReadFeature.ALLOW_SINGLE_QUOTES, true)
+            .configure(JsonReadFeature.ALLOW_UNQUOTED_PROPERTY_NAMES, true);
     }
 }

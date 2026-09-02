@@ -5,8 +5,8 @@ module de.agilecoders.wicket.jquery {
 	exports de.agilecoders.wicket.jquery.util;
 	exports de.agilecoders.wicket.jquery.util.serializer;
 
-	requires com.fasterxml.jackson.core;
-	requires com.fasterxml.jackson.databind;
+	requires tools.jackson.core;
+	requires tools.jackson.databind;
 
 	requires org.apache.wicket.core;
 	requires org.apache.wicket.util;
