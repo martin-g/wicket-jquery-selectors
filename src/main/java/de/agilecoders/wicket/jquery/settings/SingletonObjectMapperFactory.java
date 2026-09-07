@@ -1,6 +1,6 @@
 package de.agilecoders.wicket.jquery.settings;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * special {@link DefaultObjectMapperFactory} that holds mapper as singleton instance.
