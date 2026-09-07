@@ -72,10 +72,10 @@ public class DefaultObjectMapperFactory implements ObjectMapperFactory {
     }
 
     /**
-     * configures given object mapper instance.
+     * configures given object of mapper builder instance.
      *
-     * @param mapper the object to configure
-     * @return mapper instance for chaining
+     * @param builder the object to configure
+     * @return builder instance for chaining
      */
     protected JsonMapper.Builder configure(JsonMapper.Builder builder) {
         return builder
