@@ -3,7 +3,7 @@ package de.agilecoders.wicket.jquery;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.util.Json;
 
 import static de.agilecoders.wicket.jquery.JQuery.$;
@@ -32,9 +32,9 @@ public class AbstractConfigTest {
         String value = new NestedConfig().toJsonString();
 
         JsonNode json = Json.parse(value);
-        assertThat(json.get("testConfig").get("string").asText(), is("1"));
+        assertThat(json.get("testConfig").get("string").asString(), is("1"));
         assertThat(json.get("testConfig").get("integer").asInt(), is(1));
-        assertThat(json.get("string").asText(), is("2"));
+        assertThat(json.get("string").asString(), is("2"));
     }
 
     @Test
