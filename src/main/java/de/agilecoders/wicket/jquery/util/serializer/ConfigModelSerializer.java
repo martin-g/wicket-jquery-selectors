@@ -1,21 +1,20 @@
 package de.agilecoders.wicket.jquery.util.serializer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
 import de.agilecoders.wicket.jquery.ConfigModel;
-
-import java.io.IOException;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
 /**
  * {@link de.agilecoders.wicket.jquery.ConfigModel} json serializer
  *
  * @author Michael Haitz
  */
-public class ConfigModelSerializer extends JsonSerializer<ConfigModel> {
+public class ConfigModelSerializer extends ValueSerializer<ConfigModel> {
 
     @Override
-    public void serialize(ConfigModel value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+    public void serialize(ConfigModel value, JsonGenerator jsonGenerator, SerializationContext ctxt) throws JacksonException {
         jsonGenerator.writeString(value.getObject());
     }
 

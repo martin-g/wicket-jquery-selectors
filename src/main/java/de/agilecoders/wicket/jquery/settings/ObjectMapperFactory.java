@@ -1,9 +1,9 @@
 package de.agilecoders.wicket.jquery.settings;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
- * {@link com.fasterxml.jackson.databind.ObjectMapper} factory
+ * {@link tools.jackson.databind.ObjectMapper} factory
  *
  * @author Michael Haitz
  */

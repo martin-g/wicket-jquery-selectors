@@ -1,6 +1,6 @@
 package de.agilecoders.wicket.jquery.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.Attr;
 import de.agilecoders.wicket.jquery.Config;
 import de.agilecoders.wicket.jquery.function.JavaScriptInlineFunction;

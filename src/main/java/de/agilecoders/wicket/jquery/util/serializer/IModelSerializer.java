@@ -1,27 +1,28 @@
 package de.agilecoders.wicket.jquery.util.serializer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import org.apache.wicket.model.IModel;
+import tools.jackson.core.JsonGenerator;
 
-import java.io.IOException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
+
+import org.apache.wicket.model.IModel;
 
 /**
  * {@link IModel} json serializer
  *
  * @author Michael Haitz
  */
-public class IModelSerializer extends JsonSerializer<IModel> {
+public class IModelSerializer extends ValueSerializer<IModel> {
 
     @Override
-    public void serialize(IModel value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+    public void serialize(IModel value, JsonGenerator jsonGenerator, SerializationContext ctxt) throws JacksonException {
         Object obj = value.getObject();
 
         if (obj instanceof CharSequence) {
             jsonGenerator.writeString(obj.toString());
         } else {
-            jsonGenerator.writeObject(obj);
+            jsonGenerator.writePOJO(obj);
         }
     }
 

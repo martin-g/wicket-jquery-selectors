@@ -1,6 +1,6 @@
 package de.agilecoders.wicket.jquery;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import de.agilecoders.wicket.jquery.util.Json;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -92,10 +92,10 @@ public class MutableConfigTest {
     public void toJsonContainsOnlyNonDefaultValues() throws Exception {
         JsonNode json = Json.parse(combined.toJsonString());
 
-        assertThat(json.get(key1.key()).asText(), is("value1"));
-        assertThat(json.get(key3.key()).asText(), is("value3"));
-        assertThat(json.get(key4.key()).asText(), is("value4"));
-        assertThat(json.get(key5.key()).asText(), is("value5"));
+        assertThat(json.get(key1.key()).asString(), is("value1"));
+        assertThat(json.get(key3.key()).asString(), is("value3"));
+        assertThat(json.get(key4.key()).asString(), is("value4"));
+        assertThat(json.get(key5.key()).asString(), is("value5"));
 
         assertThat(json.has(key2.key()), is(false));
         assertThat(json.has(key6.key()), is(false));

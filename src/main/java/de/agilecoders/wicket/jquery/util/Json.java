@@ -1,10 +1,9 @@
 package de.agilecoders.wicket.jquery.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 import de.agilecoders.wicket.jquery.WicketJquerySelectors;
 import de.agilecoders.wicket.jquery.settings.ObjectMapperFactory;
 import org.apache.wicket.util.io.IClusterable;
@@ -122,11 +121,7 @@ public final class Json {
      * @return stringified version of given json object
      */
     public static String stringify(final JsonNode json) {
-        try {
-            return json != null ? createObjectMapper().writeValueAsString(json) : "{}";
-        } catch (JsonProcessingException jpx) {
-            throw new RuntimeException("A problem occurred while stringifying a JsonNode: " + jpx.getMessage(), jpx);
-        }
+        return json != null ? createObjectMapper().writeValueAsString(json) : "{}";
     }
 
     /**
