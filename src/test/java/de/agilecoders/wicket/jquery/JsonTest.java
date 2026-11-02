@@ -1,7 +1,7 @@
 package de.agilecoders.wicket.jquery;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 import de.agilecoders.wicket.jquery.util.Json;
 
 import java.util.HashMap;
@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Tag;
@@ -27,19 +28,18 @@ import org.junit.jupiter.api.Test;
  */
 @Tag("unitTest")
 public class JsonTest {
-    private static final String JSON_STRING = "{\"key\":\"value\",\"3\":true,\"double\":1.2,\"\":null,"
-                                              + "\"1\":\"value2\"}";
+    private static final String JSON_STRING = "{\"key\":\"value\",\"3\":true,\"double\":1.2,\"\":null,\"1\":\"value2\"}";
     private static final String NONSTANDARD_JSON_STRING = "{\"\":null,'1':\"value2\",\"3\":true,double:1.2,\"key\":'value'}";
 
     @Test
     public void toJsonCreatesValidJsonNode() throws Exception {
         JsonNode jsonNode = Json.toJson(createData());
 
-        assertThat(jsonNode.get("key").asText(), is(equalTo("value")));
-        assertThat(jsonNode.get("1").asText(), is(equalTo("value2")));
+        assertThat(jsonNode.get("key").asString(), is(equalTo("value")));
+        assertThat(jsonNode.get("1").asString(), is(equalTo("value2")));
         assertThat(jsonNode.get("3").asBoolean(), is(equalTo(true)));
         assertThat(jsonNode.get("double").asDouble(), is(equalTo(1.2)));
-        assertThat(jsonNode.get("").asText(), is(equalTo("null")));
+        assertNull(jsonNode.get("").stringValue());
     }
 
     @Test
@@ -149,22 +149,22 @@ public class JsonTest {
     public void parseReturnsCorrectJsonNode() throws Exception {
         JsonNode jsonNode = Json.parse(JSON_STRING);
 
-        assertThat(jsonNode.get("key").asText(), is(equalTo("value")));
-        assertThat(jsonNode.get("1").asText(), is(equalTo("value2")));
+        assertThat(jsonNode.get("key").asString(), is(equalTo("value")));
+        assertThat(jsonNode.get("1").asString(), is(equalTo("value2")));
         assertThat(jsonNode.get("3").asBoolean(), is(equalTo(true)));
         assertThat(jsonNode.get("double").asDouble(), is(equalTo(1.2)));
-        assertThat(jsonNode.get("").asText(), is(equalTo("null")));
+        assertNull(jsonNode.get("").stringValue());
     }
 
     @Test
     public void parseNonStandardJsonReturnsCorrectJsonNode() throws Exception {
         JsonNode jsonNode = Json.parse(NONSTANDARD_JSON_STRING);
 
-        assertThat(jsonNode.get("key").asText(), is(equalTo("value")));
-        assertThat(jsonNode.get("1").asText(), is(equalTo("value2")));
+        assertThat(jsonNode.get("key").asString(), is(equalTo("value")));
+        assertThat(jsonNode.get("1").asString(), is(equalTo("value2")));
         assertThat(jsonNode.get("3").asBoolean(), is(equalTo(true)));
         assertThat(jsonNode.get("double").asDouble(), is(equalTo(1.2)));
-        assertThat(jsonNode.get("").asText(), is(equalTo("null")));
+        assertNull(jsonNode.get("").stringValue());
     }
 
     private Object createData() {
